@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maison Dulce — Torturi artizanale la comandă, cu ridicare personală</title>
+<meta name="description" content="Descoperă torturile și deserturile Maison Dulce. Alegem împreună blatul, cremele și decorul, apoi ridici comanda la data confirmată.">
+<meta property="og:title" content="Maison Dulce — Dulciuri create pentru momente care merită sărbătorite">
+<meta property="og:description" content="Torturi și deserturi artizanale, pregătite cu ingrediente atent alese și personalizate pentru povestea ta.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://images.unsplash.com/photo-1535141192574-5d4897c12636?w=1200&q=80">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Bakery",
+  "name": "Maison Dulce",
+  "image": "https://images.unsplash.com/photo-1535141192574-5d4897c12636?w=1200&q=80",
+  "@id": "https://www.maisondulce.ro",
+  "url": "https://www.maisondulce.ro",
+  "telephone": "+40 762 396 862",
+  "priceRange": "120-1500 RON",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Str. Primăverii nr. 24",
+    "addressLocality": "București",
+    "postalCode": "011234",
+    "addressCountry": "RO"
+  },
+  "openingHoursSpecification": [
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "09:00", "closes": "19:00" },
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Saturday","Sunday"], "opens": "10:00", "closes": "16:00" }
+  ]
+}
+</script>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<a href="#main" class="skip-link">Sari la conținutul principal</a>
+
+<div class="promo-banner" id="promoBanner">
+  🎂 Torturi artizanale făcute la comandă. Alege aromele preferate și ridică tortul la data stabilită împreună.
+  <button aria-label="Închide bannerul" id="closePromo">×</button>
+</div>
+
+<header id="siteHeader">
+  <div class="nav-wrap">
+    <a href="#top" class="logo" aria-label="Maison Dulce — acasă">
+      <svg class="logo-mark" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="20" cy="20" r="19" stroke="#7A2E3A" stroke-width="1.4"/>
+        <path d="M12 24C12 20 15 15 20 15C25 15 28 20 28 24" stroke="#7A2E3A" stroke-width="1.6" stroke-linecap="round"/>
+        <path d="M14 24H26" stroke="#B78D42" stroke-width="1.6" stroke-linecap="round"/>
+        <circle cx="20" cy="12" r="1.6" fill="#B78D42"/>
+      </svg>
+      Maison Dulce
+    </a>
+    <nav class="main-nav" id="mainNav">
+      <a href="#top">Acasă</a>
+      <a href="#produse">Produse</a>
+      <a href="#torturi-personalizate">Torturi personalizate</a>
+      <a href="#despre-noi">Despre noi</a>
+      <a href="#recenzii">Recenzii</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="nav-actions">
+      <a href="#produse" class="btn btn-primary btn-sm">Vezi torturile</a>
+      <button class="burger" aria-label="Deschide meniul" id="menuButton">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+<div id="top"></div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container hero-grid">
+    <div>
+      <div class="eyebrow">Cofetărie artizanală din 2020</div>
+      <h1>Dulciuri create pentru <em>momente</em> care merită sărbătorite</h1>
+      <p class="lead">Torturi și deserturi artizanale, pregătite cu ingrediente atent alese și personalizate pentru povestea ta.</p>
+      <div class="hero-ctas">
+        <a href="#produse" class="btn btn-primary">Vezi torturile</a>
+        <a href="#torturi-personalizate" class="btn btn-secondary">Creează un tort personalizat</a>
+      </div>
+      <div class="hero-perks">
+        <div class="perk"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Ingrediente atent selecționate</div>
+        <div class="perk"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Produse realizate artizanal</div>
+        <div class="perk"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Ridicare personală la data stabilită</div>
+      </div>
+    </div>
+    <div class="hero-visual reveal">
+      <div class="blob" aria-hidden="true"></div>
+      <img src="https://images.unsplash.com/photo-1535141192574-5d4897c12636?w=900&q=80" alt="Tort artizanal decorat cu flori și fructe de pădure, semnătura cofetăriei Maison Dulce" loading="lazy" width="900" height="1035">
+      <div class="hero-badge">100% artizanal, în loturi mici</div>
+    </div>
+  </div>
+</section>
+<svg class="scallop" viewBox="0 0 1200 34" preserveAspectRatio="none"><path d="M0,34 L0,14 C50,34 100,-4 150,14 C200,34 250,-4 300,14 C350,34 400,-4 450,14 C500,34 550,-4 600,14 C650,34 700,-4 750,14 C800,34 850,-4 900,14 C950,34 1000,-4 1050,14 C1100,34 1150,-4 1200,14 L1200,34 Z"></path></svg>
+
+<!-- CATEGORII -->
+<section id="categorii" class="extracted-style-1">
+  <div class="container">
+    <div class="section-head center reveal">
+      <div class="eyebrow extracted-style-2">Ce pregătim</div>
+      <h2>O gamă completă pentru fiecare sărbătoare</h2>
+      <p>De la un tort de aniversare la un candy bar complet pentru nuntă — alegi categoria potrivită momentului tău.</p>
+    </div>
+    <div class="cat-grid">
+      <div class="cat-card reveal">
+        <div class="cat-img"><img src="https://images.unsplash.com/photo-1558636508-e0db3814bd1d?w=600&q=80" alt="Tort de aniversare cu lumânări" loading="lazy"></div>
+        <div class="cat-body">
+          <h3>Torturi aniversare</h3>
+          <p>Decoruri personalizate pe orice temă, pentru copii și adulți.</p>
+          <a href="#produse" class="link-arrow">Descoperă produsele <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+      </div>
+      <div class="cat-card reveal">
+        <div class="cat-img"><img src="https://images.unsplash.com/photo-1522767131594-6b7e96e5b30a?w=600&q=80" alt="Tort de nuntă elegant, alb, cu flori" loading="lazy"></div>
+        <div class="cat-body">
+          <h3>Torturi pentru nuntă</h3>
+          <p>Etajate, elegante, adaptate temei și numărului de invitați.</p>
+          <a href="#produse" class="link-arrow">Descoperă produsele <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+      </div>
+      <div class="cat-card reveal">
+        <div class="cat-img"><img src="https://images.unsplash.com/photo-1488477304112-4944851de03d?w=600&q=80" alt="Mini-prăjituri artizanale asortate" loading="lazy"></div>
+        <div class="cat-body">
+          <h3>Prăjituri și mini-deserturi</h3>
+          <p>Cutii asortate, perfecte pentru birou, petreceri sau cadou.</p>
+          <a href="#produse" class="link-arrow">Descoperă produsele <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+      </div>
+      <div class="cat-card reveal">
+        <div class="cat-img"><img src="https://images.unsplash.com/photo-1587668178277-295251f900ce?w=600&q=80" alt="Candy bar cu deserturi colorate pentru eveniment" loading="lazy"></div>
+        <div class="cat-body">
+          <h3>Candy bar</h3>
+          <p>Un colț dulce complet, coordonat cu tema evenimentului tău.</p>
+          <a href="#produse" class="link-arrow">Descoperă produsele <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+      </div>
+      <div class="cat-card reveal">
+        <div class="cat-img"><img src="https://images.unsplash.com/photo-1607478900766-efe13248b125?w=600&q=80" alt="Colecție sezonieră de deserturi de sărbători" loading="lazy"></div>
+        <div class="cat-body">
+          <h3>Colecții sezoniere</h3>
+          <p>Ediții limitate, inspirate de fructele și aromele fiecărui anotimp.</p>
+          <a href="#produse" class="link-arrow">Descoperă produsele <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+      </div>
+      <div class="cat-card reveal">
+        <div class="cat-img"><img src="https://images.unsplash.com/photo-1517686469429-8bdb88b9f907?w=600&q=80" alt="Pachet corporate de deserturi ambalate elegant" loading="lazy"></div>
+        <div class="cat-body">
+          <h3>Pachete corporate</h3>
+          <p>Cutii personalizate cu logo, pentru evenimente și cadouri de firmă.</p>
+          <a href="#produse" class="link-arrow">Descoperă produsele <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUSE POPULARE -->
+<section id="produse">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">Preferatele clienților</div>
+      <h2>Produse populare</h2>
+      <p>Vezi fotografiile, blaturile și cremele sugerate pentru fiecare produs. Comenzile se stabilesc direct cu noi.</p>
+    </div>
+    <div class="prod-grid" id="productGrid"></div>
+  </div>
+</section>
+
+<!-- TORTURI PERSONALIZATE -->
+<section id="torturi-personalizate" class="custom-cake">
+  <svg class="scallop extracted-style-3" viewBox="0 0 1200 34" preserveAspectRatio="none"><path d="M0,0 L0,20 C50,0 100,34 150,20 C200,0 250,34 300,20 C350,0 400,34 450,20 C500,0 550,34 600,20 C650,0 700,34 750,20 C800,0 850,34 900,20 C950,0 1000,34 1050,20 C1100,0 1150,34 1200,20 L1200,0 Z" class="extracted-style-4"></path></svg>
+  <div class="container extracted-style-5">
+    <div class="cc-grid">
+      <div class="reveal">
+        <div class="eyebrow extracted-style-6">Comandă specială</div>
+        <h2>Tortul imaginat de tine, creat de noi</h2>
+        <p class="extracted-style-7">Spune-ne ce sărbătorești, câte persoane vor participa și cum îți dorești să arate tortul. Noi îți trimitem o propunere personalizată.</p>
+        <div class="cc-img extracted-style-8">
+          <img src="https://images.unsplash.com/photo-1621303837174-89787a7d4729?w=700&q=80" alt="Cofetar decorând manual un tort personalizat" loading="lazy">
+        </div>
+      </div>
+      <div class="reveal">
+        <form class="form-card" id="customCakeForm" novalidate>
+          <div class="form-grid">
+            <div class="field">
+              <label for="cc-nume">Nume complet *</label>
+              <input type="text" id="cc-nume" name="nume" required autocomplete="name">
+              <span class="error">Te rugăm să completezi numele.</span>
+            </div>
+            <div class="field">
+              <label for="cc-telefon">Telefon *</label>
+              <input type="tel" id="cc-telefon" name="telefon" required autocomplete="tel" placeholder="07xx xxx xxx">
+              <span class="error">Introdu un număr de telefon valid.</span>
+            </div>
+            <div class="field full">
+              <label for="cc-email">E-mail *</label>
+              <input type="email" id="cc-email" name="email" required autocomplete="email">
+              <span class="error">Introdu o adresă de e-mail validă.</span>
+            </div>
+            <div class="field">
+              <label for="cc-eveniment">Tipul evenimentului *</label>
+              <select id="cc-eveniment" name="eveniment" required>
+                <option value="">Alege...</option>
+                <option>Aniversare</option>
+                <option>Nuntă</option>
+                <option>Botez</option>
+                <option>Corporate</option>
+                <option>Altă ocazie</option>
+              </select>
+              <span class="error">Alege tipul evenimentului.</span>
+            </div>
+            <div class="field">
+              <label for="cc-data">Data dorită pentru ridicare *</label>
+              <input type="date" id="cc-data" name="data" required>
+              <span class="error">Selectează o dată.</span>
+            </div>
+            <div class="field">
+              <label for="cc-persoane">Numărul de persoane *</label>
+              <input type="number" id="cc-persoane" name="persoane" min="1" required placeholder="ex. 30">
+              <span class="error">Introdu numărul de persoane.</span>
+            </div>
+            <div class="field">
+              <label for="cc-aroma">Aromă preferată</label>
+              <select id="cc-aroma" name="aroma">
+                <option value="">Alege...</option>
+                <option>Ciocolată</option>
+                <option>Vanilie</option>
+                <option>Fructe de pădure</option>
+                <option>Caramel sărat</option>
+                <option>Nu știu încă</option>
+              </select>
+            </div>
+            <div class="field full">
+              <label for="cc-buget">Buget orientativ</label>
+              <select id="cc-buget" name="buget">
+                <option value="">Alege...</option>
+                <option>200 - 400 lei</option>
+                <option>400 - 700 lei</option>
+                <option>700 - 1200 lei</option>
+                <option>peste 1200 lei</option>
+              </select>
+            </div>
+            <div class="field full">
+              <label for="cc-mesaj">Mesaj</label>
+              <textarea id="cc-mesaj" name="mesaj" rows="3" placeholder="Descrie cum îți imaginezi tortul..."></textarea>
+            </div>
+            <p class="field full">Ai o fotografie de inspirație? O poți atașa direct în conversația WhatsApp.</p>
+          </div>
+          <div class="checkbox-row">
+            <input type="checkbox" id="cc-gdpr" required>
+            <label for="cc-gdpr">Sunt de acord cu prelucrarea datelor cu caracter personal, conform Politicii de confidențialitate. *</label>
+          </div>
+          <button type="submit" class="btn btn-primary extracted-style-9">Continuă pe WhatsApp</button>
+          <div class="form-msg" id="ccMsg">Mesajul a fost pregătit în WhatsApp. Verifică-l și apasă „Trimite” acolo pentru a ne contacta.</div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CUM FUNCȚIONEAZĂ -->
+<section id="cum-functioneaza" class="extracted-style-10">
+  <div class="container">
+    <div class="section-head center reveal">
+      <div class="eyebrow extracted-style-11">Proces simplu</div>
+      <h2>Cum funcționează comanda</h2>
+    </div>
+    <div class="steps">
+      <div class="step reveal">
+        <div class="step-num">01</div>
+        <h3>Alegi produsele</h3>
+        <p>Descoperi produsele și opțiunile disponibile din meniul nostru.</p>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">02</div>
+        <h3>Alegi aromele</h3>
+        <p>Ne spui ce blat, creme și decor preferi. Te ajutăm cu sugestii potrivite.</p>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">03</div>
+        <h3>Stabilim data</h3>
+        <p>Confirmăm disponibilitatea și ora la care poți ridica personal comanda.</p>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">04</div>
+        <h3>Noi pregătim momentul dulce</h3>
+        <p>Pregătim produsul după detaliile confirmate și te așteptăm la ridicare.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DESPRE NOI -->
+<section id="despre-noi">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-img reveal">
+        <img src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=800&q=80" alt="Laboratorul cofetăriei Maison Dulce, unde se pregătesc produsele zilnic" loading="lazy">
+      </div>
+      <div class="reveal">
+        <div class="eyebrow">Povestea noastră</div>
+        <h2 class="extracted-style-12">Despre cofetărie</h2>
+        <p class="about-quote">„Fiecare desert începe cu o idee și continuă cu ingrediente bune, atenție la detalii și multă răbdare. Pregătim produsele în laboratorul nostru, în loturi mici, pentru ca fiecare comandă să ajungă proaspătă la client.”</p>
+        <div class="stats">
+          <div class="stat"><div class="num" data-count="1500">0</div><div class="lbl">comenzi realizate</div></div>
+          <div class="stat"><div class="num" data-count="5">0</div><div class="lbl">ani de experiență</div></div>
+          <div class="stat"><div class="num" data-count="100" data-suffix="%">0</div><div class="lbl">ingrediente premium</div></div>
+          <div class="stat"><div class="num" data-static="Zilnic">Zilnic</div><div class="lbl">produse pregătite</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RECENZII -->
+<section id="recenzii" class="extracted-style-13">
+  <div class="container">
+    <div class="section-head center reveal">
+      <div class="eyebrow extracted-style-14">Recenzii</div>
+      <h2>Ce spun clienții noștri</h2>
+    </div>
+    <div class="testi-wrap reveal">
+      <button class="testi-arrow prev" aria-label="Recenzia anterioară" id="testiPrev">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7A2E3A" stroke-width="2.4"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <div class="testi-track">
+        <div class="testi-slides" id="testiSlides">
+          <div class="testi-slide">
+            <div class="testi-card">
+              <div class="stars">★★★★★</div>
+              <p class="testi-text">„Tortul a arătat exact ca în fotografia trimisă și a fost delicios. Invitații ne-au întrebat imediat de unde l-am comandat.”</p>
+              <div class="testi-name">Ioana</div>
+              <div class="testi-event">Aniversare</div>
+            </div>
+          </div>
+          <div class="testi-slide">
+            <div class="testi-card">
+              <div class="stars">★★★★★</div>
+              <p class="testi-text">„Comanda a ajuns la timp, iar toate prăjiturile au fost proaspete și foarte frumos prezentate.”</p>
+              <div class="testi-name">Radu</div>
+              <div class="testi-event">Eveniment corporate</div>
+            </div>
+          </div>
+          <div class="testi-slide">
+            <div class="testi-card">
+              <div class="stars">★★★★★</div>
+              <p class="testi-text">„Am comandat candy bar-ul pentru botez și totul a fost impecabil, de la comunicare până la ultimul desert.”</p>
+              <div class="testi-name">Mihaela</div>
+              <div class="testi-event">Botez</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="testi-arrow next" aria-label="Recenzia următoare" id="testiNext">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7A2E3A" stroke-width="2.4"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+      <div class="testi-dots" id="testiDots"></div>
+    </div>
+  </div>
+</section>
+
+<!-- GALERIE -->
+<section id="galerie">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">Portofoliu</div>
+      <h2>Galerie</h2>
+      <p>O selecție din lucrările noastre recente.</p>
+    </div>
+    <div class="gallery-grid" id="galleryGrid"></div>
+  </div>
+</section>
+
+<!-- RIDICARE -->
+<section id="ridicare" class="extracted-style-15">
+  <div class="container delivery-grid">
+    <div class="reveal">
+      <div class="eyebrow">Cum primești comanda</div>
+      <h2>Ridicare personală, la ora stabilită</h2>
+      <div class="deliv-list">
+        <div class="deliv-item">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 12l2-7h14l2 7M5 12h14v7H5z"/></svg>
+          <div><h4>Ridicare din cofetărie</h4><p>Pregătim comanda pentru data și ora confirmate împreună.</p></div>
+        </div>
+        <div class="deliv-item">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 12h13l4 4M3 12V7h13v9"/></svg>
+          <div><h4>Fără livrare</h4><p>În acest moment, torturile și deserturile se ridică personal.</p></div>
+        </div>
+        <div class="deliv-item">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="10" r="3"/><path d="M12 21s7-7.5 7-12a7 7 0 1 0-14 0c0 4.5 7 12 7 12z"/></svg>
+          <div><h4>Locația de ridicare</h4><p>Îți confirmăm adresa exactă și intervalul de ridicare când stabilim comanda.</p></div>
+        </div>
+        <div class="deliv-item">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+          <div><h4>Comenzi personalizate</h4><p>Recomandăm programarea din timp, pentru a rezerva ziua dorită.</p></div>
+        </div>
+      </div>
+      <div class="extracted-style-16">
+        <a class="btn btn-primary" href="#contact">Contactează-ne</a>
+        <a href="https://www.google.com/maps/search/?api=1&query=Maison+Dulce+Bucuresti" target="_blank" rel="noopener" class="btn btn-secondary">Vezi locația pe hartă</a>
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="map-frame">
+        <iframe title="Locația Maison Dulce pe hartă" loading="lazy" src="https://maps.google.com/maps?q=Bucuresti&z=13&output=embed"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="container">
+    <div class="section-head center reveal">
+      <div class="eyebrow extracted-style-17">Întrebări frecvente</div>
+      <h2>Tot ce vrei să știi înainte să comanzi</h2>
+    </div>
+    <div class="faq reveal" id="faqList"></div>
+  </div>
+</section>
+
+<!-- CONTACT CTA -->
+<section class="newsletter">
+  <div class="container news-box reveal">
+    <h2>Ai o idee de tort?</h2>
+    <p class="extracted-style-18">Spune-ne ocazia, aromele preferate și data dorită. Îți răspundem cu o propunere personalizată.</p>
+    <a href="#torturi-personalizate" class="btn btn-primary contact-cta">Descrie-ne tortul tău</a>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="extracted-style-19">
+  <div class="container contact-grid">
+    <div class="reveal">
+      <div class="eyebrow">Hai să vorbim</div>
+      <h2 class="extracted-style-20">Contact</h2>
+      <div class="contact-info">
+        <div class="cinfo-row">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="10" r="3"/><path d="M12 21s7-7.5 7-12a7 7 0 1 0-14 0c0 4.5 7 12 7 12z"/></svg>
+          <div><h4>Adresă</h4><p>Str. Primăverii nr. 24, București</p></div>
+        </div>
+        <div class="cinfo-row">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+          <div><h4>Program</h4><p>Luni - Vineri: 09:00 - 19:00 · Weekend: 10:00 - 16:00</p></div>
+        </div>
+        <div class="cinfo-row">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.68 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.32 1.85.55 2.81.68A2 2 0 0 1 22 16.92z"/></svg>
+          <div><h4>Telefon</h4><p>+40 762 396 862</p></div>
+        </div>
+        <div class="cinfo-row">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16v16H4z"/><path d="M4 6l8 7 8-7"/></svg>
+          <div><h4>E-mail</h4><p>comenzi@maisondulce.ro</p></div>
+        </div>
+        <div class="cinfo-row">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          <div><h4>WhatsApp</h4><p>+40 762 396 862</p></div>
+        </div>
+        <div class="social-row">
+          <a href="#" aria-label="Instagram Maison Dulce"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+          <a href="#" aria-label="Facebook Maison Dulce"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+          <a href="#" aria-label="TikTok Maison Dulce"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg></a>
+        </div>
+        <div class="quick-actions">
+          <a href="tel:+40762396862" class="btn btn-ghost btn-sm">Sună acum</a>
+          <a href="https://wa.me/40762396862" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">Scrie-ne pe WhatsApp</a>
+          <a href="https://www.google.com/maps/search/?api=1&query=Maison+Dulce+Bucuresti" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">Deschide în Google Maps</a>
+        </div>
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="map-frame extracted-style-21">
+        <iframe title="Harta cofetăriei Maison Dulce" loading="lazy" src="https://maps.google.com/maps?q=Bucuresti&z=14&output=embed"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="container footer-grid">
+    <div>
+      <a href="#top" class="logo">
+        <svg class="logo-mark" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="20" cy="20" r="19" stroke="#EFD9D2" stroke-width="1.4"/>
+          <path d="M12 24C12 20 15 15 20 15C25 15 28 20 28 24" stroke="#EFD9D2" stroke-width="1.6" stroke-linecap="round"/>
+          <path d="M14 24H26" stroke="#B78D42" stroke-width="1.6" stroke-linecap="round"/>
+        </svg>
+        Maison Dulce
+      </a>
+      <p class="desc">Cofetărie artizanală din București. Torturi și deserturi pregătite în loturi mici, cu ingrediente atent alese, pentru momentele tale importante.</p>
+    </div>
+    <div>
+      <h4>Navigare</h4>
+      <ul>
+        <li><a href="#top">Acasă</a></li>
+        <li><a href="#produse">Produse</a></li>
+        <li><a href="#torturi-personalizate">Torturi personalizate</a></li>
+        <li><a href="#despre-noi">Despre noi</a></li>
+        <li><a href="#recenzii">Recenzii</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Categorii</h4>
+      <ul>
+        <li><a href="#categorii">Torturi aniversare</a></li>
+        <li><a href="#categorii">Torturi de nuntă</a></li>
+        <li><a href="#categorii">Mini-deserturi</a></li>
+        <li><a href="#categorii">Candy bar</a></li>
+        <li><a href="#categorii">Pachete corporate</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <ul>
+        <li>Str. Primăverii nr. 24, București</li>
+        <li>+40 762 396 862</li>
+        <li>comenzi@maisondulce.ro</li>
+      </ul>
+    </div>
+  </div>
+  <div class="container footer-bottom">
+    <span>© <span id="year"></span> Maison Dulce. Toate drepturile rezervate.</span>
+    <div class="extracted-style-22">
+      <a href="#">Termeni și condiții</a>
+      <a href="#">Politica de confidențialitate</a>
+      <a href="#">Politica privind cookie-urile</a>
+      <a href="#ridicare">Ridicare și anulare</a>
+    </div>
+  </div>
+</footer>
+
+<!-- Sticky mobile CTA -->
+<div class="mobile-sticky-cta">
+  <a href="#produse" class="btn btn-primary">Vezi produsele</a>
+</div>
+
+<!-- WhatsApp float -->
+<a href="https://wa.me/40762396862" target="_blank" rel="noopener" class="whatsapp-float" aria-label="Scrie-ne pe WhatsApp">
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.29-1.39a9.9 9.9 0 0 0 4.75 1.21h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.51 2 12.04 2zm5.79 14.05c-.24.68-1.4 1.3-1.93 1.38-.5.08-1.11.11-1.79-.11-.41-.13-.94-.31-1.62-.6-2.85-1.23-4.71-4.09-4.85-4.28-.14-.19-1.１6-１．５４-１．１６-２．９４ ０-１．４．７３-２．０９ １-２．３８．２６-．２８．５７-．３５．７６-．３５h．５５c．１８ ０ ，４２-．０３，６５ ，５．２４ ，５６ ，８１ ，１９６ ，８８ ，２１ ，０７ ，１４ ，１１ ，３１ ，０２ ，５ ，－０．０９ ，１９ ，－０．１４ ，３１ ，－０．２８ ，４７ ，－０．１４ ，１６ ，－０．２９ ，３６ ，－０．４２ ，４８ ，－０．１４ ，１３ ，－０．２８ ，２８ ，－０．１２ ，５５ ，０．１６ ，２８ ，０．７１ ，１．１８ ，１．５３ ，１．９１ ，１．０５ ，９４ ，１．９４ ，１．２４ ，２．２₁ ，¹³⁸，²⁸，¹⁴，⁴⁴，¹²，⁶，₀₇，₁₉，⁶⁸，₋₇₉，₈₆，₁₀₆，₁₈，₋₂₈，₃₆，₋₂₃，⁶，₋₁₄，₀₉，₁․₅₅，₀․₇₃，₁․₈₁，₀․₈₆，₀․₂₇，₀․₁₄،₀․٤٥،₀․٢،₀․٥١،₀․٣٢،₀․٠٧،₀․١٢،₀․٠٧،₀․٦٥،⁻۰٫۱۷،۱٫۳۳z"/></svg>
+</a>
+
+<!-- Cookie consent -->
+<div class="cookie-banner" id="cookieBanner">
+  <p>Folosim cookie-uri pentru a-ți oferi cea mai bună experiență pe site și pentru a analiza traficul. <a href="#" class="extracted-style-23">Politica privind cookie-urile</a></p>
+  <div class="cookie-actions">
+    <button class="btn btn-secondary btn-sm extracted-style-24" id="cookieNecessary">Doar necesare</button>
+    <button class="btn btn-primary btn-sm" id="cookieAccept">Accept toate</button>
+  </div>
+</div>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" aria-label="Închide" id="lightboxClose">×</button>
+  <button class="lightbox-nav prev" aria-label="Imaginea anterioară" id="lightboxPrev">‹</button>
+  <img id="lightboxImg" src="" alt="">
+  <button class="lightbox-nav next" aria-label="Imaginea următoare" id="lightboxNext">›</button>
+</div>
+
+<!-- Toasts -->
+<div class="toast-wrap" id="toastWrap"></div>
+
+<script src="product-data.js" defer></script>
+<script src="script.js" defer></script>
+
+</body>
+</html>
