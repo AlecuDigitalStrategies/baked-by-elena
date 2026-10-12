@@ -16,9 +16,9 @@
       },
       {
         "id": "galerie-002",
-        "src": "https://images.unsplash.com/photo-1522767131594-6b7e96e5b30a?w=700&q=80",
+        "src": "assets/img/galerie/galerie-002-1791809870475-93a91a2f.jpg",
         "titlu": "Torturi de nuntă",
-        "descriere": "",
+        "descriere": "decor ptr logodna",
         "alt": "Torturi de nuntă",
         "inalta": false,
         "vizibila": true
