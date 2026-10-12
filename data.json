@@ -25,9 +25,9 @@
       },
       {
         "id": "galerie-003",
-        "src": "https://images.unsplash.com/photo-1587668178277-295251f900ce?w=700&q=80",
-        "titlu": "Candy bar",
-        "descriere": "",
+        "src": "assets/img/galerie/galerie-003-1791810256934-1d92b7f7.jpg",
+        "titlu": "Prajituri red velevet",
+        "descriere": "mini red velvet",
         "alt": "Candy bar",
         "inalta": false,
         "vizibila": true
