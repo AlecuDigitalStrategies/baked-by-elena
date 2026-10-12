@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "build": "node scripts/build.mjs",
-    "check:admin": "node --test admin/tests/gallery.test.mjs"
+    "check:admin": "node --test admin/tests/gallery.test.mjs admin/tests/invite.test.mjs"
   },
   "dependencies": {
     "@netlify/identity": "2.0.0"

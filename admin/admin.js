@@ -1,6 +1,6 @@
 const API = '/.netlify/functions/';
 const MAX_IMAGE_BYTES = 3_000_000;
-const state = { data: null, revision: null, selectedId: null, pendingFile: null, previewUrl: null, authorized: false, local: false, dirty: false };
+const state = { data: null, revision: null, selectedId: null, pendingFile: null, previewUrl: null, authorized: false, local: false, dirty: false, inviteToken: null };
 
 const $ = id => document.getElementById(id);
 const fields = {
@@ -128,6 +128,7 @@ async function loadLocal() {
   state.local = true;
   state.authorized = false;
   $('accountName').textContent = 'Previzualizare locală';
+  $('invitePanel').hidden = true;
   $('loginPanel').hidden = true;
   $('localPanel').hidden = false;
   $('saveButton').disabled = true;
@@ -145,6 +146,7 @@ async function checkSession() {
   const session = await api('admin-session');
   state.local = false;
   state.authorized = Boolean(session.authorized);
+  $('invitePanel').hidden = true;
   $('localPanel').hidden = true;
   $('accountName').textContent = session.email || 'Neconectat';
   $('logoutButton').hidden = !session.authenticated;
@@ -159,6 +161,44 @@ async function checkSession() {
     setStatus('Conectează-te pentru a edita și salva galeria.');
   }
 }
+
+$('inviteForm').addEventListener('submit', async event => {
+  event.preventDefault();
+  if (!state.inviteToken) return;
+  const password = $('newPassword').value;
+  if (password !== $('confirmPassword').value) {
+    setStatus('Parolele nu coincid. Încearcă din nou.', 'error');
+    return;
+  }
+  const button = $('inviteForm').querySelector('button[type=submit]');
+  button.disabled = true;
+  setStatus('Se activează contul…');
+  try {
+    const result = await api('admin-accept-invite', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ token: state.inviteToken, password })
+    });
+    state.inviteToken = null;
+    $('newPassword').value = '';
+    $('confirmPassword').value = '';
+    try {
+      await checkSession();
+    } catch {
+      $('invitePanel').hidden = true;
+      $('loginPanel').hidden = false;
+      $('accountName').textContent = 'Neconectat';
+      setStatus('Contul a fost activat, dar sesiunea nu a putut fi verificată. Conectează-te cu parola aleasă.', 'error');
+      return;
+    }
+    if (result.loginRequired) {
+      setStatus('Contul a fost activat. Conectează-te cu adresa invitată și parola aleasă.', 'success');
+    }
+  } catch (error) {
+    setStatus(`${error.message} Dacă invitația a expirat, cere o invitație nouă.`, 'error');
+  } finally {
+    button.disabled = false;
+  }
+});
 
 $('loginForm').addEventListener('submit', async event => {
   event.preventDefault();
@@ -282,7 +322,15 @@ $('reloadButton').addEventListener('click', async () => {
   }
 });
 
-if (window.location.protocol === 'file:') {
+const inviteToken = new URLSearchParams(window.location.hash.slice(1)).get('invite_token');
+if (window.location.protocol !== 'file:' && inviteToken) {
+  state.inviteToken = inviteToken;
+  window.history.replaceState(null, '', window.location.pathname + window.location.search);
+  $('accountName').textContent = 'Activare cont';
+  $('invitePanel').hidden = false;
+  $('loginPanel').hidden = true;
+  setStatus('Alege o parolă de cel puțin 8 caractere pentru a accepta invitația.');
+} else if (window.location.protocol === 'file:') {
   loadLocal();
 } else {
   checkSession().catch(() => loadLocal());
