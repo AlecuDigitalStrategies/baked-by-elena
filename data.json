@@ -1,0 +1,82 @@
+{
+  "versiune": 1,
+  "galerie": {
+    "supratitlu": "Portofoliu",
+    "titlu": "Galerie",
+    "descriere": "O selecție din lucrările noastre recente.",
+    "imagini": [
+      {
+        "id": "galerie-001",
+        "src": "https://images.unsplash.com/photo-1558636508-e0db3814bd1d?w=700&q=80",
+        "titlu": "Torturi aniversare",
+        "descriere": "",
+        "alt": "Torturi aniversare",
+        "inalta": true,
+        "vizibila": true
+      },
+      {
+        "id": "galerie-002",
+        "src": "https://images.unsplash.com/photo-1522767131594-6b7e96e5b30a?w=700&q=80",
+        "titlu": "Torturi de nuntă",
+        "descriere": "",
+        "alt": "Torturi de nuntă",
+        "inalta": false,
+        "vizibila": true
+      },
+      {
+        "id": "galerie-003",
+        "src": "https://images.unsplash.com/photo-1587668178277-295251f900ce?w=700&q=80",
+        "titlu": "Candy bar",
+        "descriere": "",
+        "alt": "Candy bar",
+        "inalta": false,
+        "vizibila": true
+      },
+      {
+        "id": "galerie-004",
+        "src": "https://images.unsplash.com/photo-1569864358642-9d1684040f43?w=700&q=80",
+        "titlu": "Macarons",
+        "descriere": "",
+        "alt": "Macarons",
+        "inalta": false,
+        "vizibila": true
+      },
+      {
+        "id": "galerie-005",
+        "src": "https://images.unsplash.com/photo-1488477304112-4944851de03d?w=700&q=80",
+        "titlu": "Mini-prăjituri",
+        "descriere": "",
+        "alt": "Mini-prăjituri",
+        "inalta": true,
+        "vizibila": true
+      },
+      {
+        "id": "galerie-006",
+        "src": "https://images.unsplash.com/photo-1607478900766-efe13248b125?w=700&q=80",
+        "titlu": "Deserturi sezoniere",
+        "descriere": "",
+        "alt": "Deserturi sezoniere",
+        "inalta": false,
+        "vizibila": true
+      },
+      {
+        "id": "galerie-007",
+        "src": "https://images.unsplash.com/photo-1535254973040-607b474cb50d?w=700&q=80",
+        "titlu": "Torturi aniversare",
+        "descriere": "",
+        "alt": "Torturi aniversare",
+        "inalta": false,
+        "vizibila": true
+      },
+      {
+        "id": "galerie-008",
+        "src": "https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=700&q=80",
+        "titlu": "Candy bar",
+        "descriere": "",
+        "alt": "Candy bar",
+        "inalta": false,
+        "vizibila": true
+      }
+    ]
+  }
+}

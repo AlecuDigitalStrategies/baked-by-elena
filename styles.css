@@ -149,6 +149,7 @@
   .prod-price{ font-weight:800; color:var(--bordeaux-deep); font-family:var(--serif); font-size:18px; margin-bottom:14px;}
   .prod-actions{ display:flex; gap:8px;}
   .prod-actions .btn{flex:1; justify-content:center; padding:10px 12px; font-size:13px;}
+  .product-list-note{max-width:800px; margin:26px auto 0; color:var(--ink-soft); font-size:14px; line-height:1.7; text-align:center;}
 
   /* Custom cake section */
   .custom-cake{ background:var(--bordeaux-deep); color:#fff; position:relative; overflow:hidden;}

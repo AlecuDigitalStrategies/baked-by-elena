@@ -1,94 +1,59 @@
-/* Date de prezentare. Rețetele și alergenii se confirmă înainte de publicare. */
+/* Denumirile și prețurile sunt preluate din lista furnizată. Rețetele și alergenii se confirmă la comandă. */
+const PRESENTATION_PHOTOS = {
+  decorated: 'assets/img/WhatsApp Image 2025-01-08 at 19.12.06.jpeg',
+  berrySlice: 'assets/img/WhatsApp Image 2025-01-08 at 19.44.00 (4).jpeg',
+  fruitSlice: 'assets/img/WhatsApp Image 2025-01-08 at 19.44.00 (5).jpeg',
+  chocolateSlice: 'assets/img/WhatsApp Image 2025-01-08 at 19.44.00 (2).jpeg',
+  oreoSlice: 'assets/img/WhatsApp Image 2025-01-08 at 19.44.01.jpeg',
+  layeredSlice: 'assets/img/WhatsApp Image 2025-01-08 at 19.44.00 (1).jpeg',
+  colorfulSlice: 'assets/img/WhatsApp Image 2025-01-08 at 19.44.00.jpeg',
+  oreoCake: 'assets/img/chocolate_1.jpeg',
+  candyCake: 'assets/img/chocolate_2.jpeg',
+  assorted: 'assets/img/cutie_prajituri_3.jpeg',
+  assortedMore: 'assets/img/cutie_prajituri_4.jpeg',
+  lightCakes: 'assets/img/cutie_prajituri_2.jpeg',
+  cozonac: 'assets/img/cozonaci/cozonaci.jpg'
+};
+
+const cakeDefaults = {
+  desc: 'Pregătit la comandă. Compoziția și decorul se stabilesc împreună.',
+  tag: '',
+  base: 'Tipul de blat se confirmă pentru rețeta aleasă.',
+  creams: ['Cremele și umpluturile se stabilesc împreună la comandă.'],
+  pairings: ['Mousse-urile și confiturile de fructe se pot combina după preferință, în funcție de rețetă.'],
+  allergens: ['Lista se confirmă pentru rețeta finală.'],
+  note: 'Fotografiile sunt de prezentare. Ingredientele, alergenii și prețul final se confirmă înainte de preparare.'
+};
+
 window.MAISON_PRODUCTS = [
+  { id: 'red-velvet', name: 'Tort Red Velvet', price: '100 lei', images: [PRESENTATION_PHOTOS.colorfulSlice, PRESENTATION_PHOTOS.decorated, PRESENTATION_PHOTOS.berrySlice] },
+  { id: 'medovik', name: 'Tort Medovik', price: '100 lei', images: [PRESENTATION_PHOTOS.layeredSlice, PRESENTATION_PHOTOS.lightCakes, PRESENTATION_PHOTOS.decorated] },
+  { id: 'morcovi', name: 'Tort de morcovi', price: '100 lei', images: [PRESENTATION_PHOTOS.decorated, PRESENTATION_PHOTOS.layeredSlice, PRESENTATION_PHOTOS.fruitSlice] },
+  { id: 'vanila', name: 'Tort Vanila', price: '110 lei', images: [PRESENTATION_PHOTOS.berrySlice, PRESENTATION_PHOTOS.decorated, PRESENTATION_PHOTOS.fruitSlice] },
+  { id: 'snikers', name: 'Tort Snikers', price: '110 lei', images: [PRESENTATION_PHOTOS.chocolateSlice, PRESENTATION_PHOTOS.candyCake, PRESENTATION_PHOTOS.layeredSlice] },
+  { id: 'ciocolata-visine', name: 'Tort Ciocolata Visine', price: '110 lei', images: [PRESENTATION_PHOTOS.chocolateSlice, PRESENTATION_PHOTOS.oreoCake, PRESENTATION_PHOTOS.candyCake] },
+  { id: 'oreo', name: 'Tort Oreo', price: '110 lei', images: [PRESENTATION_PHOTOS.oreoCake, PRESENTATION_PHOTOS.oreoSlice, PRESENTATION_PHOTOS.candyCake] },
+  { id: 'fistic-zmeura', name: 'Tort Fistic-Zmeura', price: '130 lei', images: [PRESENTATION_PHOTOS.fruitSlice, PRESENTATION_PHOTOS.berrySlice, PRESENTATION_PHOTOS.decorated] },
   {
-    id: 'p1', name: 'Tort Signature Chocolate',
-    desc: 'Blat umed de cacao, cremă fină de ciocolată și fructe de pădure.',
-    price: 'de la 180 lei/kg', tag: 'Bestseller',
-    images: [
-      'assets/img/chocolate_1.jpeg',
-      'assets/img/chocolate_2.jpeg',
-      'assets/img/chocolate_3.jpeg'
-    ],
-    base: 'Blat umed de cacao.',
-    creams: ['Ganache de ciocolată', 'Cremă de mascarpone', 'Cremă de fructe de pădure'],
-    pairings: ['Ganache de ciocolată + fructe de pădure: gust intens, echilibrat de note acrișoare.', 'Mascarpone + fructe de pădure: o variantă mai lejeră.'],
-    allergens: ['gluten (grâu)', 'lapte', 'ouă'],
-    note: 'Decorul și proporția cremelor se stabilesc împreună la confirmarea comenzii.'
+    id: 'prajituri-asortate', name: 'Prajituri Asortate', price: '90 lei',
+    images: [PRESENTATION_PHOTOS.assorted, PRESENTATION_PHOTOS.assortedMore, PRESENTATION_PHOTOS.lightCakes],
+    desc: 'Selecția de prăjituri se stabilește la comandă.',
+    base: 'Compoziția diferă în funcție de prăjiturile alese.',
+    creams: ['Se confirmă în funcție de selecția dorită.'],
+    pairings: ['Poți alege o selecție de gusturi diferite; verificăm opțiunile disponibile.'],
+    allergens: ['Lista se confirmă pentru selecția finală.']
   },
   {
-    id: 'p2', name: 'Tort Vanilla Raspberry',
-    desc: 'Blat de vanilie, cremă de mascarpone și zmeură proaspătă.',
-    price: 'de la 170 lei/kg', tag: 'Bestseller',
-    images: [
-      'https://images.unsplash.com/photo-1571115177098-24ec42ed204d?w=1100&q=85',
-      'https://images.unsplash.com/photo-1535254973040-607b474cb50d?w=1100&q=85',
-      'https://images.unsplash.com/photo-1558636508-e0db3814bd1d?w=1100&q=85'
-    ],
-    base: 'Blat pufos de vanilie.',
-    creams: ['Mascarpone cu vanilie', 'Cremă de zmeură', 'Ganache de ciocolată albă'],
-    pairings: ['Mascarpone cu vanilie + zmeură: combinație delicată și proaspătă.', 'Ciocolată albă + zmeură: mai dulce, cu contrast fructat.'],
-    allergens: ['gluten (grâu)', 'lapte', 'ouă'],
-    note: 'Poate fi adaptat după sezon și disponibilitatea fructelor.'
+    id: 'cozonac', name: 'Cozonac', price: '70 lei / 1 kg',
+    images: [PRESENTATION_PHOTOS.cozonac],
+    desc: 'Cozonac de 1 kg, pregătit la comandă. Umplutura se confirmă înainte de preparare.',
+    base: 'Aluatul și umplutura se confirmă la comandă.',
+    creams: ['Umplutura se stabilește în funcție de opțiunile disponibile.'],
+    pairings: ['Întreabă-ne ce variante de umplutură sunt disponibile.'],
+    allergens: ['Lista se confirmă pentru rețeta aleasă.']
   },
-  {
-    id: 'p3', name: 'Cheesecake cu fructe de pădure',
-    desc: 'Cremă fină de brânză și topping artizanal de fructe de pădure.',
-    price: '160 lei', tag: '',
-    images: [
-      'https://images.unsplash.com/photo-1488477304112-4944851de03d?w=1100&q=85',
-      'https://images.unsplash.com/photo-1488477304112-4944851de03d?w=1100&q=85',
-      'https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=1100&q=85'
-    ],
-    base: 'Bază crocantă de biscuiți, fără blat clasic.',
-    creams: ['Cremă de brânză cu vanilie', 'Topping de fructe de pădure'],
-    pairings: ['Cremă de brânză + fructe de pădure: dulce, cremos și ușor acrișor.', 'Se poate discuta un topping mai intens de zmeură.'],
-    allergens: ['gluten (grâu)', 'lapte', 'ouă'],
-    note: 'Porțiile și decorul se confirmă înainte de preparare.'
-  },
-  {
-    id: 'p4', name: 'Cutie mini-prăjituri',
-    desc: 'Selecție de 12 deserturi artizanale, ideale pentru cadou.',
-    price: '120 lei', tag: 'Nou',
-    images: [
-      'assets/img/cutie_prajituri_1.jpeg',
-      'assets/img/cutie_prajituri_2.jpeg',
-      'assets/img/cutie_prajituri_3.jpeg',
-      'assets/img/cutie_prajituri_4.jpeg',
-    ],
-    base: 'Blatul diferă în funcție de mini-prăjiturile alese.',
-    creams: ['Ciocolată', 'Vanilie', 'Fructe de pădure', 'Caramel'],
-    pairings: ['Ciocolată + caramel: combinație bogată.', 'Vanilie + fructe de pădure: variantă mai proaspătă.'],
-    allergens: ['gluten (grâu)', 'lapte', 'ouă', 'fructe cu coajă lemnoasă — în funcție de selecție'],
-    note: 'Componența cutiei se stabilește la comandă; alergenii depind de selecția finală.'
-  },
-  {
-    id: 'p5', name: 'Tort Caramel Sărat',
-    desc: 'Blat pufos, cremă de caramel sărat și crocant de alune.',
-    price: 'de la 175 lei/kg', tag: 'Nou',
-    images: [
-      'https://images.unsplash.com/photo-1621303837174-89787a7d4729?w=1100&q=85',
-      'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=1100&q=85',
-      'https://images.unsplash.com/photo-1542826438-bd32f43d626f?w=1100&q=85'
-    ],
-    base: 'Blat pufos cu vanilie; varianta cu cacao se poate discuta.',
-    creams: ['Cremă de caramel sărat', 'Ganache de ciocolată', 'Cremă de vanilie'],
-    pairings: ['Caramel sărat + ciocolată: gust intens.', 'Caramel sărat + vanilie: variantă mai blândă.'],
-    allergens: ['gluten (grâu)', 'lapte', 'ouă', 'arahide sau fructe cu coajă lemnoasă — în funcție de crocant'],
-    note: 'Tipul de crocant și alergenii se confirmă înainte de comandă.'
-  },
-  {
-    id: 'p6', name: 'Macarons artizanali (cutie 12 buc.)',
-    desc: 'Șase arome clasice, coajă crocantă și umplutură fină.',
-    price: '95 lei', tag: '',
-    images: [
-      'https://images.unsplash.com/photo-1569864358642-9d1684040f43?w=1100&q=85',
-      'https://images.unsplash.com/photo-1607478900766-efe13248b125?w=1100&q=85',
-      'https://images.unsplash.com/photo-1558326567-98ae2405596b?w=1100&q=85'
-    ],
-    base: 'Coji de macaron pe bază de făină de migdale, fără blat de tort.',
-    creams: ['Ganache de ciocolată', 'Vanilie', 'Fructe de pădure', 'Caramel'],
-    pairings: ['Ciocolată + fructe de pădure: contrast plăcut.', 'Vanilie + caramel: arome clasice, delicate.'],
-    allergens: ['migdale (fructe cu coajă lemnoasă)', 'ouă', 'lapte — în funcție de umplutură'],
-    note: 'Aromele din cutie și alergenii se confirmă pentru fiecare lot.'
-  }
-];
+  { id: 'trio-ciocolata', name: 'Tort Trio de Ciocolata', price: '110 lei', images: [PRESENTATION_PHOTOS.chocolateSlice, PRESENTATION_PHOTOS.candyCake, PRESENTATION_PHOTOS.oreoCake] },
+  { id: 'rafaello', name: 'Tort Rafaello', price: '110 lei', images: [PRESENTATION_PHOTOS.lightCakes, PRESENTATION_PHOTOS.decorated, PRESENTATION_PHOTOS.berrySlice] },
+  { id: 'kinder-bueno', name: 'Tort Kinder-Bueno', price: '110 lei', images: [PRESENTATION_PHOTOS.candyCake, PRESENTATION_PHOTOS.chocolateSlice, PRESENTATION_PHOTOS.oreoCake] },
+  { id: 'savoarea-fructelor', name: 'Tort Savoarea-Fructelor', price: '110 lei', images: [PRESENTATION_PHOTOS.fruitSlice, PRESENTATION_PHOTOS.berrySlice, PRESENTATION_PHOTOS.decorated] }
+].map(product => ({ ...cakeDefaults, ...product }));

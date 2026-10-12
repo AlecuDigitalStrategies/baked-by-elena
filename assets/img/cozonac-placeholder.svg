@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 700" role="img" aria-labelledby="title desc">
+  <title id="title">Cozonac la comandă</title>
+  <desc id="desc">Ilustrație de prezentare; fotografia produsului va fi adăugată ulterior.</desc>
+  <rect width="900" height="700" fill="#f7eee2"/>
+  <circle cx="450" cy="305" r="245" fill="#f0ddc5"/>
+  <path d="M184 412c4-123 99-207 266-207s262 84 266 207c-3 45-44 77-98 77H282c-54 0-95-32-98-77Z" fill="#b57643"/>
+  <path d="M184 412c4-123 99-207 266-207s262 84 266 207c-3 45-44 77-98 77H282c-54 0-95-32-98-77Z" fill="none" stroke="#7d4c2d" stroke-width="16"/>
+  <path d="M278 301c41-44 104-65 172-65s131 21 172 65M245 372c57-45 126-66 205-66s148 21 205 66" fill="none" stroke="#e9b982" stroke-linecap="round" stroke-width="24"/>
+  <text x="450" y="583" text-anchor="middle" font-family="Georgia,serif" font-size="50" fill="#6f2839">Cozonac</text>
+  <text x="450" y="624" text-anchor="middle" font-family="Arial,sans-serif" font-size="22" fill="#856b59">fotografie în curând</text>
+</svg>

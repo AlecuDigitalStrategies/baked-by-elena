@@ -14,21 +14,21 @@
   <a href="#main" class="skip-link">Sari la conținutul principal</a>
   <header class="detail-header">
     <div class="nav-wrap">
-      <a href="maison-dulce.html#top" class="logo" aria-label="Maison Dulce — acasă">
+      <a href="index.html#top" class="logo" aria-label="Maison Dulce — acasă">
         <svg class="logo-mark" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="20" cy="20" r="19" stroke="#7A2E3A" stroke-width="1.4"/><path d="M12 24C12 20 15 15 20 15C25 15 28 20 28 24" stroke="#7A2E3A" stroke-width="1.6" stroke-linecap="round"/><path d="M14 24H26" stroke="#B78D42" stroke-width="1.6" stroke-linecap="round"/><circle cx="20" cy="12" r="1.6" fill="#B78D42"/></svg>
         Maison Dulce
       </a>
-      <a href="maison-dulce.html#produse" class="btn btn-secondary btn-sm">Înapoi la produse</a>
+      <a href="index.html#produse" class="btn btn-secondary btn-sm">Înapoi la produse</a>
     </div>
   </header>
 
   <main id="main" class="detail-main">
     <div class="container">
-      <nav class="detail-breadcrumb" aria-label="Navigare în pagină"><a href="maison-dulce.html#produse">Produse</a><span aria-hidden="true">/</span><span id="breadcrumbName">Detalii</span></nav>
+      <nav class="detail-breadcrumb" aria-label="Navigare în pagină"><a href="index.html#produse">Produse</a><span aria-hidden="true">/</span><span id="breadcrumbName">Detalii</span></nav>
       <div id="productNotFound" class="detail-empty" hidden>
         <h1>Produsul nu a fost găsit</h1>
         <p>Te rugăm să alegi un produs din lista noastră.</p>
-        <a class="btn btn-primary" href="maison-dulce.html#produse">Vezi produsele</a>
+        <a class="btn btn-primary" href="index.html#produse">Vezi produsele</a>
       </div>
       <div id="productDetail" hidden>
         <div class="detail-hero">
@@ -52,7 +52,7 @@
             <div class="eyebrow">Compoziție</div>
             <h2 id="baseHeading">Blat sau bază</h2>
             <p id="detailBase"></p>
-            <h3>Creme și umpluturi propuse</h3>
+            <h3>Creme și umpluturi</h3>
             <ul id="detailCreams"></ul>
           </section>
           <section class="detail-panel" aria-labelledby="pairingsHeading">
@@ -66,7 +66,7 @@
         <section class="detail-allergens" aria-labelledby="allergensHeading">
           <div>
             <div class="eyebrow">Informații importante</div>
-            <h2 id="allergensHeading">Alergeni posibili</h2>
+            <h2 id="allergensHeading">Alergeni — de confirmat</h2>
             <ul id="detailAllergens" class="allergen-list"></ul>
           </div>
           <p>Lista este orientativă și se poate schimba după rețeta finală. Dacă ai alergii sau intoleranțe, menționează-le înainte de confirmarea comenzii. Vom verifica ingredientele și posibilul contact în laborator.</p>
@@ -76,24 +76,24 @@
           <div>
             <div class="eyebrow">Comandă la cerere</div>
             <h2 id="orderHeading">Spune-ne cum ți-l dorești</h2>
-            <p>Mai jos vezi rezumatul produsului. Alege crema și data dorită; noi verificăm rețeta finală, prețul și disponibilitatea înainte de confirmarea comenzii.</p>
+            <p>Mai jos vezi rezumatul produsului. Spune-ne ce cremă sau umplutură preferi și data dorită; noi verificăm rețeta finală, prețul și disponibilitatea înainte de confirmarea comenzii.</p>
           </div>
           <form id="detailOrderForm" class="detail-order-form">
             <div class="detail-order-summary" aria-labelledby="orderSummaryHeading">
               <h3 id="orderSummaryHeading">Rezumatul solicitării</h3>
               <dl>
                 <div><dt>Produs</dt><dd id="orderProductName"></dd></div>
-                <div><dt>Compoziție prezentată</dt><dd id="orderComposition"></dd></div>
+                <div><dt>Detalii produs</dt><dd id="orderComposition"></dd></div>
                 <div><dt>Blat / bază</dt><dd id="orderBase"></dd></div>
                 <div><dt>Preț orientativ</dt><dd id="orderPrice"></dd></div>
-                <div><dt>Alergeni posibili</dt><dd id="orderPossibleAllergens"></dd></div>
+                <div><dt>Alergeni</dt><dd id="orderPossibleAllergens"></dd></div>
                 <div><dt>Disponibilitate</dt><dd>Se confirmă după verificarea datei dorite.</dd></div>
               </dl>
               <p>Compoziția și lista finală de alergeni depind de rețeta confirmată. Te rugăm să ne spui despre orice alergie înainte de preparare.</p>
             </div>
             <div class="field">
-              <label for="orderCream">Crema preferată</label>
-              <select id="orderCream" name="cream"></select>
+              <label for="orderCream">Cremă sau umplutură preferată</label>
+              <input id="orderCream" name="cream" type="text" placeholder="Ex. mousse de vanilie și confit de zmeură">
             </div>
             <div class="detail-form-row">
               <div class="field">
@@ -123,7 +123,7 @@
   </main>
 
   <footer class="detail-footer">
-    <div class="container detail-footer-inner"><span>© <span id="detailYear"></span> Maison Dulce</span><a href="maison-dulce.html#contact">Contact și ridicare</a></div>
+    <div class="container detail-footer-inner"><span>© <span id="detailYear"></span> Maison Dulce</span><a href="index.html#contact">Contact și ridicare</a></div>
   </footer>
   <script src="product-data.js" defer></script>
   <script src="product.js" defer></script>

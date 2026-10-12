@@ -59,17 +59,7 @@ if (!product) {
   addListItems('detailPairings', product.pairings);
   addListItems('detailAllergens', product.allergens);
 
-  const creamSelect = document.getElementById('orderCream');
-  const defaultOption = document.createElement('option');
-  defaultOption.value = '';
-  defaultOption.textContent = 'Aș vrea o recomandare';
-  creamSelect.appendChild(defaultOption);
-  product.creams.forEach(cream => {
-    const option = document.createElement('option');
-    option.value = cream;
-    option.textContent = cream;
-    creamSelect.appendChild(option);
-  });
+  const creamInput = document.getElementById('orderCream');
 
   const dateInput = document.getElementById('orderDate');
   const today = new Date();
@@ -80,17 +70,17 @@ if (!product) {
     event.preventDefault();
     const text = [
       `Bună! Aș dori detalii pentru ${product.name}.`,
-      `Compoziție prezentată: ${product.desc}`,
+      `Detalii produs: ${product.desc}`,
       `Blat / bază: ${product.base}`,
-      `Cremă preferată: ${creamSelect.value || 'aș dori o recomandare'}`,
+      `Cremă sau umplutură preferată: ${creamInput.value.trim() || 'aș dori o recomandare'}`,
       `Preț orientativ afișat: ${product.price}`,
-      `Alergeni posibili afișați: ${product.allergens.join(', ')}`,
+      `Alergeni: ${product.allergens.join(', ')}`,
       `Pentru aproximativ: ${document.getElementById('orderPortions').value || 'de discutat'} persoane`,
       `Data dorită pentru ridicare: ${dateInput.value || 'de stabilit'}`,
       `Alergii/intoleranțe de verificat: ${document.getElementById('orderAllergies').value.trim() || 'nu am completat'}`,
       `Alte detalii: ${document.getElementById('orderNotes').value.trim() || 'de discutat'}`,
       'Vă rog să confirmați rețeta și alergenii finali, prețul și disponibilitatea pentru data dorită.'
     ].join('\n');
-    window.open(`https://wa.me/40762396862?text=${encodeURIComponent(text)}`, '_blank', 'noopener');
+    window.open(`https://wa.me/40765789688?text=${encodeURIComponent(text)}`, '_blank', 'noopener');
   });
 }

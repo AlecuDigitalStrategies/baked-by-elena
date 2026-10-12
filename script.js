@@ -190,7 +190,7 @@ ccForm.addEventListener('submit', function(e){
     `Buget: ${document.getElementById('cc-buget').value || 'de discutat'}`,
     `Detalii: ${document.getElementById('cc-mesaj').value.trim() || 'de discutat'}`
   ];
-  window.open(`https://wa.me/40762396862?text=${encodeURIComponent(lines.join('\n'))}`, '_blank', 'noopener');
+  window.open(`https://wa.me/40765789688?text=${encodeURIComponent(lines.join('\n'))}`, '_blank', 'noopener');
   document.getElementById('ccMsg').classList.add('success');
 });
 
