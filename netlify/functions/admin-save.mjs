@@ -1,4 +1,5 @@
 import { getUser, verifyRequestOrigin } from '@netlify/identity';
+import { randomUUID } from 'node:crypto';
 import {
   GalleryError, requireGithubConfig, readRepoData, writeRepoFile,
   validateItem, validateImage, imagePath, errorResponse
@@ -22,7 +23,7 @@ export default async function handler(request) {
     }
     let value;
     try { value = JSON.parse(rawItem); } catch { throw new GalleryError('Datele imaginii nu sunt JSON valid.'); }
-    const item = validateItem(value);
+    const item = validateItem(value, { allowNew: true });
     const image = await validateImage(form.get('image'));
 
     const config = requireGithubConfig();
@@ -30,18 +31,21 @@ export default async function handler(request) {
     if (current.revision !== revision) {
       throw new GalleryError('Galeria a fost modificată între timp. Reîncarcă înainte de salvare.', 409);
     }
-    const index = current.data.galerie.imagini.findIndex(entry => entry.id === item.id);
-    if (index < 0) throw new GalleryError('Imaginea selectată nu mai există în galerie.', 404);
+    const index = item.id === null ? -1 : current.data.galerie.imagini.findIndex(entry => entry.id === item.id);
+    if (item.id !== null && index < 0) throw new GalleryError('Imaginea selectată nu mai există în galerie.', 404);
+    if (item.id === null && !image) throw new GalleryError('Adaugă o fotografie pentru noua imagine din galerie.');
 
-    const updated = { ...current.data.galerie.imagini[index], ...item };
+    const id = item.id || `galerie-${randomUUID().slice(0, 12)}`;
+    const updated = { ...(index >= 0 ? current.data.galerie.imagini[index] : {}), ...item, id };
     if (image) {
-      const path = imagePath(item.id, image.extension);
-      await writeRepoFile(config, path, image.bytes, `Galerie: fotografie nouă pentru ${item.id}`);
+      const path = imagePath(id, image.extension);
+      await writeRepoFile(config, path, image.bytes, `Galerie: fotografie nouă pentru ${id}`);
       updated.src = path;
     }
-    current.data.galerie.imagini[index] = updated;
+    if (index >= 0) current.data.galerie.imagini[index] = updated;
+    else current.data.galerie.imagini.push(updated);
     const content = Buffer.from(`${JSON.stringify(current.data, null, 2)}\n`, 'utf8');
-    const saved = await writeRepoFile(config, 'data.json', content, `Galerie: actualizare ${item.id}`, current.revision);
+    const saved = await writeRepoFile(config, 'data.json', content, `Galerie: actualizare ${id}`, current.revision);
     if (!saved.content?.sha) throw new GalleryError('GitHub nu a confirmat versiunea nouă a fișierului.', 502);
     return Response.json({ item: updated, revision: saved.content.sha }, { headers: { 'Cache-Control': 'no-store' } });
   } catch (error) {

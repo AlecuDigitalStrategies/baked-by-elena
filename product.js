@@ -1,7 +1,9 @@
 const productId = new URLSearchParams(window.location.search).get('id');
-const product = window.MAISON_PRODUCTS.find(item => item.id === productId);
 document.getElementById('detailYear').textContent = new Date().getFullYear();
 
+window.MAISON_CONTENT.load().then(data => {
+const products = window.MAISON_CONTENT.products(data) ?? window.MAISON_PRODUCTS;
+const product = products.find(item => item.id === productId);
 if (!product) {
   document.getElementById('productNotFound').hidden = false;
 } else {
@@ -84,3 +86,4 @@ if (!product) {
     window.open(`https://wa.me/40765789688?text=${encodeURIComponent(text)}`, '_blank', 'noopener');
   });
 }
+});

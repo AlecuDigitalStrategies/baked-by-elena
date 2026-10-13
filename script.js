@@ -1,8 +1,8 @@
 
 /* ---------- Data ---------- */
-const PRODUCTS = window.MAISON_PRODUCTS;
+let PRODUCTS = window.MAISON_PRODUCTS || [];
 
-const GALLERY = [
+let GALLERY = [
   { img:'https://images.unsplash.com/photo-1558636508-e0db3814bd1d?w=700&q=80', label:'Torturi aniversare', tall:true },
   { img:'https://images.unsplash.com/photo-1522767131594-6b7e96e5b30a?w=700&q=80', label:'Torturi de nuntă' },
   { img:'https://images.unsplash.com/photo-1587668178277-295251f900ce?w=700&q=80', label:'Candy bar' },
@@ -46,25 +46,66 @@ function showToast(msg, type){
 }
 
 /* ---------- Render products ---------- */
-const productGrid = document.getElementById('productGrid');
-PRODUCTS.forEach(p => {
-  const card = document.createElement('div');
-  card.className = 'prod-card reveal';
-  card.innerHTML = `
-    <div class="prod-img">
-      ${p.tag ? `<span class="tag ${p.tag === 'Nou' ? 'new' : ''}">${p.tag}</span>` : ''}
-      <img data-src="${p.images[0]}" alt="${p.name}" loading="lazy">
-    </div>
-    <div class="prod-body">
-      <h3>${p.name}</h3>
-      <p>${p.desc}</p>
-      <div class="prod-price">${p.price}</div>
-      <div class="prod-actions">
-        <a href="produs.html?id=${encodeURIComponent(p.id)}" class="btn btn-primary">Vezi detalii</a>
-      </div>
-    </div>`;
-  productGrid.appendChild(card);
-});
+const productSections = document.getElementById('productSections');
+function renderProducts(categories) {
+  productSections.replaceChildren();
+  for (const category of categories) {
+    const section = document.createElement('section');
+    section.className = 'product-category';
+    section.id = `produse-${category.id}`;
+    const heading = document.createElement('h3');
+    heading.className = 'product-category-title';
+    heading.textContent = category.titlu;
+    const grid = document.createElement('div');
+    grid.className = 'prod-grid';
+    const categoryProducts = PRODUCTS.filter(p => (p.category || (p.id === 'cozonac' ? 'cozonaci' : p.id === 'prajituri-asortate' ? 'prajituri' : 'torturi')) === category.id);
+    for (const p of categoryProducts) {
+      const card = document.createElement('article');
+      card.className = 'prod-card';
+      const imageWrap = document.createElement('div');
+      imageWrap.className = 'prod-img';
+      if (p.tag) {
+        const tag = document.createElement('span');
+        tag.className = `tag${p.tag === 'Nou' ? ' new' : ''}`;
+        tag.textContent = p.tag;
+        imageWrap.append(tag);
+      }
+      const image = document.createElement('img');
+      image.dataset.src = p.images[0] || '';
+      image.alt = p.name;
+      image.loading = 'lazy';
+      imageWrap.append(image);
+      const body = document.createElement('div');
+      body.className = 'prod-body';
+      const title = document.createElement('h4');
+      title.textContent = p.name;
+      const description = document.createElement('p');
+      description.textContent = p.desc;
+      const price = document.createElement('div');
+      price.className = 'prod-price';
+      price.textContent = p.price;
+      const actions = document.createElement('div');
+      actions.className = 'prod-actions';
+      const link = document.createElement('a');
+      link.href = `produs.html?id=${encodeURIComponent(p.id)}`;
+      link.className = 'btn btn-primary';
+      link.textContent = 'Vezi detalii';
+      actions.append(link);
+      body.append(title, description, price, actions);
+      card.append(imageWrap, body);
+      grid.append(card);
+    }
+    if (!categoryProducts.length) {
+      const empty = document.createElement('p');
+      empty.className = 'product-category-empty';
+      empty.textContent = 'Produse în pregătire.';
+      grid.append(empty);
+    }
+    section.append(heading, grid);
+    productSections.append(section);
+  }
+  lazyLoadImages();
+}
 
 /* Progressive image loading */
 function lazyLoadImages(){
@@ -75,30 +116,65 @@ function lazyLoadImages(){
     loader.src = src;
   });
 }
-lazyLoadImages();
-
 /* ---------- Render gallery ---------- */
 const galleryGrid = document.getElementById('galleryGrid');
-GALLERY.forEach((g, i) => {
-  const item = document.createElement('div');
-  item.className = 'gallery-item reveal' + (g.tall ? ' tall' : '');
-  item.innerHTML = `<img src="${g.img}" alt="${g.label} — Maison Dulce" loading="lazy"><span class="gallery-label">${g.label}</span>`;
-  item.addEventListener('click', () => openLightbox(i));
-  galleryGrid.appendChild(item);
+function renderGallery() {
+  galleryGrid.replaceChildren();
+  GALLERY.forEach((g, i) => {
+    const item = document.createElement('button');
+    item.type = 'button';
+    item.className = 'gallery-item' + (g.tall ? ' tall' : '');
+    item.setAttribute('aria-label', `Mărește fotografia: ${g.label}`);
+    const image = document.createElement('img');
+    image.src = g.img;
+    image.alt = g.alt || g.label;
+    image.loading = 'lazy';
+    const caption = document.createElement('span');
+    caption.className = 'gallery-label';
+    const title = document.createElement('strong');
+    title.textContent = g.label;
+    caption.append(title);
+    if (g.description) {
+      const description = document.createElement('small');
+      description.textContent = g.description;
+      caption.append(description);
+    }
+    item.append(image, caption);
+    item.addEventListener('click', () => openLightbox(i));
+    galleryGrid.appendChild(item);
+  });
+}
+
+window.MAISON_CONTENT.load().then(data => {
+  PRODUCTS = window.MAISON_CONTENT.products(data) ?? PRODUCTS;
+  GALLERY = window.MAISON_CONTENT.gallery(data) ?? GALLERY;
+  const galleryText = data?.galerie;
+  if (galleryText) {
+    document.getElementById('galleryEyebrow').textContent = galleryText.supratitlu || 'Portofoliu';
+    document.getElementById('galleryTitle').textContent = galleryText.titlu || 'Galerie';
+    document.getElementById('galleryDescription').textContent = galleryText.descriere || '';
+  }
+  renderProducts(window.MAISON_CONTENT.categories(data));
+  renderGallery();
+  if (window.location.hash.startsWith('#produse-')) {
+    document.getElementById(window.location.hash.slice(1))?.scrollIntoView();
+  }
 });
 
 let lbIndex = 0;
 function openLightbox(i){
   lbIndex = i;
   document.getElementById('lightboxImg').src = GALLERY[i].img.replace('w=700','w=1400');
-  document.getElementById('lightboxImg').alt = GALLERY[i].label;
+  document.getElementById('lightboxImg').alt = GALLERY[i].alt || GALLERY[i].label;
+  document.getElementById('lightboxCaption').textContent = [GALLERY[i].label, GALLERY[i].description].filter(Boolean).join(' — ');
   document.getElementById('lightbox').classList.add('open');
 }
 function closeLightbox(){ document.getElementById('lightbox').classList.remove('open'); }
 function moveLightbox(dir){
   lbIndex = (lbIndex + dir + GALLERY.length) % GALLERY.length;
   document.getElementById('lightboxImg').src = GALLERY[lbIndex].img.replace('w=700','w=1400');
-  document.getElementById('lightboxImg').alt = GALLERY[lbIndex].label;
+  document.getElementById('lightboxImg').alt = GALLERY[lbIndex].alt || GALLERY[lbIndex].label;
+  document.getElementById('lightboxCaption').textContent = [GALLERY[lbIndex].label, GALLERY[lbIndex].description].filter(Boolean).join(' — ');
 }
 document.getElementById('lightbox').addEventListener('click', (e) => { if(e.target.id === 'lightbox') closeLightbox(); });
 document.addEventListener('keydown', (e) => { if(e.key === 'Escape') closeLightbox(); });

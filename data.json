@@ -78,5 +78,36 @@
         "vizibila": true
       }
     ]
+  },
+  "produse": {
+    "categorii": [
+      { "id": "torturi", "titlu": "Torturi" },
+      { "id": "prajituri", "titlu": "Prăjituri" },
+      { "id": "cozonaci", "titlu": "Cozonaci" }
+    ],
+    "implicite": {
+      "descriere": "Pregătit la comandă. Compoziția și decorul se stabilesc împreună.",
+      "blat": "Tipul de blat se confirmă pentru rețeta aleasă.",
+      "creme": ["Cremele și umpluturile se stabilesc împreună la comandă."],
+      "asocieri": ["Mousse-urile și confiturile de fructe se pot combina după preferință, în funcție de rețetă."],
+      "alergeni": ["Lista se confirmă pentru rețeta finală."],
+      "nota": "Fotografiile sunt de prezentare. Ingredientele, alergenii și prețul final se confirmă înainte de preparare."
+    },
+    "articole": [
+      { "id": "red-velvet", "categorie": "torturi", "nume": "Tort Red Velvet", "pret": "100 lei", "imagini": ["assets/img/WhatsApp Image 2025-01-08 at 19.44.00.jpeg", "assets/img/WhatsApp Image 2025-01-08 at 19.12.06.jpeg", "assets/img/WhatsApp Image 2025-01-08 at 19.44.00 (4).jpeg"], "vizibil": true },
+      { "id": "medovik", "categorie": "torturi", "nume": "Tort Medovik", "pret": "100 lei", "imagini": ["assets/img/WhatsApp Image 2025-01-08 at 19.44.00 (1).jpeg", "assets/img/cutie_prajituri_2.jpeg", "assets/img/WhatsApp Image 2025-01-08 at 19.12.06.jpeg"], "vizibil": true },
+      { "id": "morcovi", "categorie": "torturi", "nume": "Tort de morcovi", "pret": "100 lei", "imagini": ["assets/img/WhatsApp Image 2025-01-08 at 19.12.06.jpeg", "assets/img/WhatsApp Image 2025-01-08 at 19.44.00 (1).jpeg", "assets/img/WhatsApp Image 2025-01-08 at 19.44.00 (5).jpeg"], "vizibil": true },
+      { "id": "vanila", "categorie": "torturi", "nume": "Tort Vanila", "pret": "110 lei", "imagini": ["assets/img/WhatsApp Image 2025-01-08 at 19.44.00 (4).jpeg", "assets/img/WhatsApp Image 2025-01-08 at 19.12.06.jpeg", "assets/img/WhatsApp Image 2025-01-08 at 19.44.00 (5).jpeg"], "vizibil": true },
+      { "id": "snikers", "categorie": "torturi", "nume": "Tort Snikers", "pret": "110 lei", "imagini": ["assets/img/WhatsApp Image 2025-01-08 at 19.44.00 (2).jpeg", "assets/img/chocolate_2.jpeg", "assets/img/WhatsApp Image 2025-01-08 at 19.44.00 (1).jpeg"], "vizibil": true },
+      { "id": "ciocolata-visine", "categorie": "torturi", "nume": "Tort Ciocolata Visine", "pret": "110 lei", "imagini": ["assets/img/WhatsApp Image 2025-01-08 at 19.44.00 (2).jpeg", "assets/img/chocolate_1.jpeg", "assets/img/chocolate_2.jpeg"], "vizibil": true },
+      { "id": "oreo", "categorie": "torturi", "nume": "Tort Oreo", "pret": "110 lei", "imagini": ["assets/img/chocolate_1.jpeg", "assets/img/WhatsApp Image 2025-01-08 at 19.44.01.jpeg", "assets/img/chocolate_2.jpeg"], "vizibil": true },
+      { "id": "fistic-zmeura", "categorie": "torturi", "nume": "Tort Fistic-Zmeura", "pret": "130 lei", "imagini": ["assets/img/WhatsApp Image 2025-01-08 at 19.44.00 (5).jpeg", "assets/img/WhatsApp Image 2025-01-08 at 19.44.00 (4).jpeg", "assets/img/WhatsApp Image 2025-01-08 at 19.12.06.jpeg"], "vizibil": true },
+      { "id": "trio-ciocolata", "categorie": "torturi", "nume": "Tort Trio de Ciocolata", "pret": "110 lei", "imagini": ["assets/img/WhatsApp Image 2025-01-08 at 19.44.00 (2).jpeg", "assets/img/chocolate_2.jpeg", "assets/img/chocolate_1.jpeg"], "vizibil": true },
+      { "id": "rafaello", "categorie": "torturi", "nume": "Tort Rafaello", "pret": "110 lei", "imagini": ["assets/img/cutie_prajituri_2.jpeg", "assets/img/WhatsApp Image 2025-01-08 at 19.12.06.jpeg", "assets/img/WhatsApp Image 2025-01-08 at 19.44.00 (4).jpeg"], "vizibil": true },
+      { "id": "kinder-bueno", "categorie": "torturi", "nume": "Tort Kinder-Bueno", "pret": "110 lei", "imagini": ["assets/img/chocolate_2.jpeg", "assets/img/WhatsApp Image 2025-01-08 at 19.44.00 (2).jpeg", "assets/img/chocolate_1.jpeg"], "vizibil": true },
+      { "id": "savoarea-fructelor", "categorie": "torturi", "nume": "Tort Savoarea-Fructelor", "pret": "110 lei", "imagini": ["assets/img/WhatsApp Image 2025-01-08 at 19.44.00 (5).jpeg", "assets/img/WhatsApp Image 2025-01-08 at 19.44.00 (4).jpeg", "assets/img/WhatsApp Image 2025-01-08 at 19.12.06.jpeg"], "vizibil": true },
+      { "id": "prajituri-asortate", "categorie": "prajituri", "nume": "Prăjituri asortate", "pret": "90 lei", "imagini": ["assets/img/cutie_prajituri_3.jpeg", "assets/img/cutie_prajituri_4.jpeg", "assets/img/cutie_prajituri_2.jpeg"], "descriere": "Selecția de prăjituri se stabilește la comandă.", "blat": "Compoziția diferă în funcție de prăjiturile alese.", "creme": ["Se confirmă în funcție de selecția dorită."], "asocieri": ["Poți alege o selecție de gusturi diferite; verificăm opțiunile disponibile."], "alergeni": ["Lista se confirmă pentru selecția finală."], "vizibil": true },
+      { "id": "cozonac", "categorie": "cozonaci", "nume": "Cozonac", "pret": "70 lei / 1 kg", "imagini": ["assets/img/cozonaci/cozonaci.jpg"], "descriere": "Cozonac de 1 kg, pregătit la comandă. Umplutura se confirmă înainte de preparare.", "blat": "Aluatul și umplutura se confirmă la comandă.", "creme": ["Umplutura se stabilește în funcție de opțiunile disponibile."], "asocieri": ["Întreabă-ne ce variante de umplutură sunt disponibile."], "alergeni": ["Lista se confirmă pentru rețeta aleasă."], "vizibil": true }
+    ]
   }
 }

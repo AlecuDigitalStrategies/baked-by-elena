@@ -1,6 +1,6 @@
 const API = '/.netlify/functions/';
 const MAX_IMAGE_BYTES = 3_000_000;
-const state = { data: null, revision: null, selectedId: null, pendingFile: null, previewUrl: null, authorized: false, local: false, dirty: false, inviteToken: null };
+const state = { data: null, revision: null, selectedId: null, pendingFile: null, previewUrl: null, authorized: false, local: false, dirty: false, inviteToken: null, addingGallery: false };
 
 const $ = id => document.getElementById(id);
 const fields = {
@@ -38,8 +38,11 @@ function clearPreviewUrl(resetInput = true) {
 
 function updatePreview() {
   const item = selectedItem();
-  if (!item) return;
-  $('imagePreview').src = state.previewUrl || imageUrl(item.src);
+  if (!item && !state.addingGallery) return;
+  const source = state.previewUrl || (item ? imageUrl(item.src) : null);
+  $('imagePreview').hidden = !source;
+  if (source) $('imagePreview').src = source;
+  else $('imagePreview').removeAttribute('src');
   $('imagePreview').alt = fields.alt.value.trim() || 'Previzualizarea fotografiei';
   $('titlePreview').textContent = fields.title.value.trim() || 'Titlu fotografie';
   $('descriptionPreview').textContent = fields.description.value.trim() || 'Descrierea fotografiei va apărea aici.';
@@ -57,9 +60,9 @@ function renderCards() {
     const title = document.createElement('strong');
     const description = document.createElement('small');
     button.type = 'button';
-    button.className = `gallery-card${item.id === state.selectedId ? ' active' : ''}`;
+    button.className = `gallery-card${!state.addingGallery && item.id === state.selectedId ? ' active' : ''}`;
     button.setAttribute('aria-label', `Editează fotografia ${index + 1}: ${item.titlu}`);
-    button.setAttribute('aria-pressed', item.id === state.selectedId ? 'true' : 'false');
+    button.setAttribute('aria-pressed', !state.addingGallery && item.id === state.selectedId ? 'true' : 'false');
     image.src = item.id === state.selectedId && state.previewUrl ? state.previewUrl : imageUrl(item.src);
     image.alt = item.alt || item.titlu;
     image.loading = 'lazy';
@@ -80,9 +83,10 @@ function renderCards() {
 }
 
 function selectItem(id) {
-  if (id === state.selectedId && state.data) return;
+  if (id === state.selectedId && state.data && !state.addingGallery) return;
   if (state.dirty && !window.confirm('Modificările nesalvate se vor pierde. Continui?')) return;
   clearPreviewUrl();
+  state.addingGallery = false;
   state.selectedId = id;
   const item = selectedItem();
   if (!item) return;
@@ -97,6 +101,24 @@ function selectItem(id) {
   renderCards();
 }
 
+$('newGalleryButton').addEventListener('click', () => {
+  if (state.dirty && !window.confirm('Modificările nesalvate se vor pierde. Continui?')) return;
+  clearPreviewUrl();
+  state.addingGallery = true;
+  state.selectedId = null;
+  fields.title.value = '';
+  fields.description.value = '';
+  fields.alt.value = '';
+  fields.visible.checked = true;
+  fields.tall.checked = false;
+  $('selectedNumber').textContent = 'Nou';
+  markDirty(false);
+  updatePreview();
+  renderCards();
+  fields.title.focus();
+  setStatus('Fotografie nouă: completează titlul și textul alternativ, apoi alege fișierul.');
+});
+
 function showEditor(data, revision = null) {
   if (!data || !data.galerie || !Array.isArray(data.galerie.imagini) || !data.galerie.imagini.length) {
     throw new Error('data.json nu conține o galerie validă.');
@@ -104,10 +126,12 @@ function showEditor(data, revision = null) {
   state.data = data;
   state.revision = revision;
   state.selectedId = null;
+  state.addingGallery = false;
   state.dirty = false;
   $('editor').hidden = false;
   $('saveButton').disabled = !state.authorized;
   selectItem(data.galerie.imagini[0].id);
+  productsEditor.load();
 }
 
 async function api(name, options = {}) {
@@ -117,6 +141,22 @@ async function api(name, options = {}) {
   if (!response.ok) throw new Error(result?.error || `Cererea a eșuat (${response.status}).`);
   return result;
 }
+
+const productsEditor = window.createProductEditor({ $, api, setStatus, imageUrl, state });
+
+function showTab(name) {
+  $('galleryEditor').hidden = name !== 'gallery';
+  $('productsEditor').hidden = name !== 'products';
+  for (const [buttonId, active] of [['galleryTab', name === 'gallery'], ['productsTab', name === 'products']]) {
+    const button = $(buttonId);
+    button.classList.toggle('active', active);
+    if (active) button.setAttribute('aria-current', 'page');
+    else button.removeAttribute('aria-current');
+  }
+}
+
+$('galleryTab').addEventListener('click', () => showTab('gallery'));
+$('productsTab').addEventListener('click', () => showTab('products'));
 
 async function loadRemote() {
   const result = await api('admin-content');
@@ -220,10 +260,11 @@ $('loginForm').addEventListener('submit', async event => {
 });
 
 $('logoutButton').addEventListener('click', async () => {
-  if (state.dirty && !window.confirm('Modificările nesalvate se vor pierde. Continui?')) return;
+  if ((state.dirty || productsEditor.hasUnsaved()) && !window.confirm('Modificările nesalvate se vor pierde. Continui?')) return;
   try {
     await api('admin-logout', { method: 'POST' });
     clearPreviewUrl();
+    productsEditor.clearPreviews();
     state.data = null;
     $('editor').hidden = true;
     await checkSession();
@@ -271,13 +312,13 @@ $('editForm').addEventListener('submit', async event => {
     setStatus('Salvarea online este disponibilă numai după conectarea ca administrator pe Netlify.', 'error');
     return;
   }
-  if (!state.dirty) {
+  if (!state.dirty && !state.addingGallery) {
     setStatus('Nu există modificări de salvat.');
     return;
   }
   const item = selectedItem();
   const update = {
-    id: item.id,
+    id: state.addingGallery ? null : item.id,
     titlu: fields.title.value.trim(),
     descriere: fields.description.value.trim(),
     alt: fields.alt.value.trim(),
@@ -288,6 +329,10 @@ $('editForm').addEventListener('submit', async event => {
     setStatus('Completează titlul și textul alternativ înainte de salvare.', 'error');
     return;
   }
+  if (state.addingGallery && !state.pendingFile) {
+    setStatus('Alege fotografia pe care vrei să o adaugi în galerie.', 'error');
+    return;
+  }
   const form = new FormData();
   form.append('item', JSON.stringify(update));
   form.append('revision', state.revision);
@@ -296,7 +341,11 @@ $('editForm').addEventListener('submit', async event => {
   setStatus('Se salvează fotografia și textele în GitHub…');
   try {
     const result = await api('admin-save', { method: 'POST', body: form });
-    Object.assign(item, result.item);
+    if (state.addingGallery) state.data.galerie.imagini.push(result.item);
+    else Object.assign(item, result.item);
+    state.addingGallery = false;
+    state.selectedId = result.item.id;
+    $('selectedNumber').textContent = `#${state.data.galerie.imagini.findIndex(entry => entry.id === result.item.id) + 1}`;
     state.revision = result.revision;
     state.pendingFile = null;
     fields.file.value = '';
@@ -312,7 +361,7 @@ $('editForm').addEventListener('submit', async event => {
 });
 
 $('reloadButton').addEventListener('click', async () => {
-  if (state.dirty && !window.confirm('Modificările nesalvate se vor pierde. Continui?')) return;
+  if ((state.dirty || productsEditor.hasUnsaved()) && !window.confirm('Modificările nesalvate se vor pierde. Continui?')) return;
   clearPreviewUrl();
   try {
     if (state.authorized) await loadRemote();

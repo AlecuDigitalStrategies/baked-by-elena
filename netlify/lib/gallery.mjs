@@ -82,8 +82,9 @@ export async function writeRepoFile(config, path, bytes, message, sha) {
   return githubRequest(config, path, 'PUT', body);
 }
 
-export function validateItem(value) {
-  if (!value || typeof value !== 'object' || !/^[a-z0-9-]{1,80}$/.test(value.id || '')) {
+export function validateItem(value, { allowNew = false } = {}) {
+  if (!value || typeof value !== 'object' ||
+      !(allowNew && value.id === null) && !/^[a-z0-9-]{1,80}$/.test(value.id || '')) {
     throw new GalleryError('Identificatorul imaginii nu este valid.');
   }
   const textFields = [

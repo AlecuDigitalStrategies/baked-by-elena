@@ -6,6 +6,7 @@
   <meta name="robots" content="noindex, nofollow">
   <title>Administrare galerie — Maison Dulce</title>
   <link rel="stylesheet" href="./admin.css">
+  <script src="./products-editor.js" defer></script>
   <script src="./admin.js" defer></script>
 </head>
 <body>
@@ -55,9 +56,14 @@
       <input id="localJson" type="file" accept="application/json,.json">
     </section>
 
-    <div id="editor" class="editor-layout" hidden>
+    <div id="editor" hidden>
+      <nav class="editor-tabs" aria-label="Secțiuni de administrare">
+        <button id="galleryTab" class="editor-tab active" type="button" aria-current="page">Galerie</button>
+        <button id="productsTab" class="editor-tab" type="button">Produse</button>
+      </nav>
+      <div id="galleryEditor" class="editor-layout">
       <section class="gallery-panel" aria-labelledby="galleryHeading">
-        <div class="panel-heading"><div><p class="eyebrow">Conținut existent</p><h2 id="galleryHeading">Imaginile din galerie <span id="imageCount"></span></h2></div><button id="reloadButton" class="text-button" type="button">Reîncarcă</button></div>
+        <div class="panel-heading"><div><p class="eyebrow">Conținut existent</p><h2 id="galleryHeading">Imaginile din galerie <span id="imageCount"></span></h2></div><div class="panel-actions"><button id="newGalleryButton" class="text-button" type="button">+ Adaugă fotografie</button><button id="reloadButton" class="text-button" type="button">Reîncarcă</button></div></div>
         <div id="galleryList" class="gallery-list"></div>
       </section>
 
@@ -85,9 +91,54 @@
           </div>
 
           <div class="form-actions"><button id="saveButton" class="button button-primary" type="submit">Salvează fotografia și textele</button><span id="dirtyMark" class="dirty-mark" hidden>Modificări nesalvate</span></div>
-          <p class="save-help">După salvare, publicarea automată poate dura câteva minute. Modificările nu apar încă în galeria publică până când conectăm site-ul la <code>data.json</code>.</p>
+          <p class="save-help">După salvare, modificările apar în galeria publică după publicarea automată pe Netlify. Aceasta poate dura câteva minute.</p>
         </form>
       </section>
+      </div>
+
+      <div id="productsEditor" class="editor-layout" hidden>
+        <section class="gallery-panel" aria-labelledby="productsHeading">
+          <div class="panel-heading"><div><p class="eyebrow">Catalog</p><h2 id="productsHeading">Produse <span id="productCount"></span></h2></div><button id="newProductButton" class="text-button" type="button">+ Adaugă produs</button></div>
+          <p class="field-hint">Alege un produs din Torturi, Prăjituri sau Cozonaci pentru a-i schimba detaliile.</p>
+          <div id="productList" class="gallery-list product-list"></div>
+        </section>
+        <section class="edit-panel" aria-labelledby="productEditHeading">
+          <div class="panel-heading"><div><p class="eyebrow">Editare catalog</p><h2 id="productEditHeading">Detalii produs</h2></div><span id="productSelectedNumber" class="number-badge"></span></div>
+          <form id="productForm">
+            <label for="productCategory" class="field-label">Categorie *</label>
+            <select id="productCategory" required></select>
+            <label for="productName" class="field-label">Nume produs *</label>
+            <input id="productName" type="text" maxlength="100" required>
+            <label for="productPrice" class="field-label">Preț afișat *</label>
+            <input id="productPrice" type="text" maxlength="80" placeholder="ex. 110 lei / kg" required>
+            <p class="field-hint">Prețul este orientativ; confirmarea finală se face la comandă.</p>
+            <label for="productDescription" class="field-label">Descriere scurtă</label>
+            <textarea id="productDescription" rows="3" maxlength="500"></textarea>
+            <label for="productBase" class="field-label">Blat sau bază</label>
+            <textarea id="productBase" rows="2" maxlength="350"></textarea>
+            <label for="productCreams" class="field-label">Creme și umpluturi</label>
+            <textarea id="productCreams" rows="3" placeholder="O cremă sau umplutură pe fiecare rând"></textarea>
+            <label for="productPairings" class="field-label">Combinații sugerate</label>
+            <textarea id="productPairings" rows="3" placeholder="O sugestie pe fiecare rând"></textarea>
+            <label for="productAllergens" class="field-label">Alergeni *</label>
+            <textarea id="productAllergens" rows="3" placeholder="Un alergen sau o mențiune pe fiecare rând" required></textarea>
+            <label for="productNote" class="field-label">Notă importantă</label>
+            <textarea id="productNote" rows="3" maxlength="500"></textarea>
+            <label for="productTag" class="field-label">Etichetă scurtă (opțional)</label>
+            <input id="productTag" type="text" maxlength="30" placeholder="ex. Nou">
+            <div class="switches"><label><input id="productVisible" type="checkbox" checked> Afișează produsul pe site</label></div>
+            <h3 class="product-photos-heading">Fotografii produs</h3>
+            <p class="field-hint">Poți înlocui oricare dintre cele 3 fotografii. Pentru un produs nou, încarcă cel puțin una. JPEG, PNG sau WebP; max. 3 MB fiecare și 4 MB împreună.</p>
+            <div class="product-photo-fields">
+              <div><img id="productImagePreview1" alt="Fotografia 1" hidden><label for="productImage1" class="field-label">Fotografia 1</label><input id="productImage1" type="file" accept="image/jpeg,image/png,image/webp"></div>
+              <div><img id="productImagePreview2" alt="Fotografia 2" hidden><label for="productImage2" class="field-label">Fotografia 2</label><input id="productImage2" type="file" accept="image/jpeg,image/png,image/webp"></div>
+              <div><img id="productImagePreview3" alt="Fotografia 3" hidden><label for="productImage3" class="field-label">Fotografia 3</label><input id="productImage3" type="file" accept="image/jpeg,image/png,image/webp"></div>
+            </div>
+            <div class="form-actions"><button id="saveProductButton" class="button button-primary" type="submit">Salvează produsul</button><span id="productDirtyMark" class="dirty-mark" hidden>Modificări nesalvate</span></div>
+            <p class="save-help">Numele, prețul, descrierea și fotografiile vor apărea pe site după publicarea automată. Detaliile complete apar în pagina produsului.</p>
+          </form>
+        </section>
+      </div>
     </div>
   </main>
 </body>

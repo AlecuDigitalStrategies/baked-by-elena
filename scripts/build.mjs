@@ -14,10 +14,10 @@ if (existsSync(output)) {
 }
 await mkdir(output, { recursive: true });
 
-const pages = ['index.html', 'produs.html', 'script.js', 'product.js', 'product-data.js', 'styles.css', 'data.json'];
+const pages = ['index.html', 'produs.html', 'script.js', 'product.js', 'product-data.js', 'site-data.js', 'styles.css', 'data.json'];
 for (const file of pages) await cp(join(root, file), join(output, file));
 await cp(join(root, 'assets'), join(output, 'assets'), { recursive: true });
-for (const file of ['index.html', 'admin.css', 'admin.js', 'invite-entry.js']) {
+for (const file of ['index.html', 'admin.css', 'admin.js', 'products-editor.js', 'invite-entry.js']) {
   await mkdir(join(output, 'admin'), { recursive: true });
   await cp(join(root, 'admin', file), join(output, 'admin', file));
 }
