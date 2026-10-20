@@ -1,5 +1,5 @@
-// data.json este sursa publică pentru galerie și produse. Datele vechi rămân
-// disponibile doar ca rezervă când pagina este deschisă direct ca file://.
+// data.json este sursa publică pentru produse. Catalogul vechi rămâne
+// disponibil ca rezervă dacă JSON-ul nu se poate încărca (inclusiv file://).
 window.MAISON_CONTENT = {
   async load() {
     try {
@@ -36,11 +36,5 @@ window.MAISON_CONTENT = {
       { id: 'prajituri', titlu: 'Prăjituri' },
       { id: 'cozonaci', titlu: 'Cozonaci' }
     ];
-  },
-  gallery(data) {
-    if (!Array.isArray(data?.galerie?.imagini)) return null;
-    return data.galerie.imagini
-      .filter(item => item.vizibila !== false)
-      .map(item => ({ img: item.src, label: item.titlu, description: item.descriere || '', alt: item.alt || item.titlu, tall: Boolean(item.inalta) }));
   }
 };

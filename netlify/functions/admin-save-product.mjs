@@ -38,6 +38,20 @@ export default async function handler(request) {
     if (product.id !== null && index < 0) throw new GalleryError('Produsul selectat nu mai există.', 404);
     const id = product.id || newProductId();
     const existing = index >= 0 ? catalog.articole[index] : null;
+    let removedPositions = [];
+    try {
+      removedPositions = JSON.parse(form.get('removeImages') || '[]');
+    } catch {
+      throw new GalleryError('Lista fotografiilor eliminate nu este validă.');
+    }
+    if (!Array.isArray(removedPositions) || removedPositions.length > 3 ||
+        removedPositions.some(position => !Number.isInteger(position) || position < 1 || position > 3) ||
+        new Set(removedPositions).size !== removedPositions.length) {
+      throw new GalleryError('Lista fotografiilor eliminate nu este validă.');
+    }
+    if (removedPositions.some(position => !existing?.imagini?.[position - 1])) {
+      throw new GalleryError('Fotografia aleasă pentru eliminare nu mai există. Reîncarcă produsul.');
+    }
     const uploads = [];
     let totalBytes = 0;
     for (let position = 1; position <= 3; position += 1) {
@@ -50,7 +64,13 @@ export default async function handler(request) {
     }
     if (totalBytes > 4_000_000) throw new GalleryError('Fotografiile noi trebuie să aibă împreună maximum 4 MB.');
     const images = Array.isArray(existing?.imagini) ? [...existing.imagini] : [];
-    if (!images.length && !uploads.length) throw new GalleryError('Adaugă cel puțin o fotografie produsului nou.');
+    if (removedPositions.some(position => uploads.some(upload => upload.position === position))) {
+      throw new GalleryError('O fotografie nu poate fi eliminată și înlocuită în aceeași poziție.');
+    }
+    for (const position of removedPositions) images[position - 1] = null;
+    if (!images.some(Boolean) && !uploads.length) {
+      throw new GalleryError('Produsul trebuie să aibă cel puțin o fotografie.');
+    }
 
     for (const upload of uploads) {
       const path = productImagePath(id, upload.extension, upload.position);

@@ -2,17 +2,6 @@
 /* ---------- Data ---------- */
 let PRODUCTS = window.MAISON_PRODUCTS || [];
 
-let GALLERY = [
-  { img:'https://images.unsplash.com/photo-1558636508-e0db3814bd1d?w=700&q=80', label:'Torturi aniversare', tall:true },
-  { img:'https://images.unsplash.com/photo-1522767131594-6b7e96e5b30a?w=700&q=80', label:'Torturi de nuntă' },
-  { img:'https://images.unsplash.com/photo-1587668178277-295251f900ce?w=700&q=80', label:'Candy bar' },
-  { img:'https://images.unsplash.com/photo-1569864358642-9d1684040f43?w=700&q=80', label:'Macarons' },
-  { img:'https://images.unsplash.com/photo-1488477304112-4944851de03d?w=700&q=80', label:'Mini-prăjituri', tall:true },
-  { img:'https://images.unsplash.com/photo-1607478900766-efe13248b125?w=700&q=80', label:'Deserturi sezoniere' },
-  { img:'https://images.unsplash.com/photo-1535254973040-607b474cb50d?w=700&q=80', label:'Torturi aniversare' },
-  { img:'https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=700&q=80', label:'Candy bar' }
-];
-
 const FAQS = [
   { q:'Cu cât timp înainte trebuie să comand un tort?', a:'Pentru torturile din gama standard recomandăm minimum 48 de ore. Pentru torturile personalizate sau comenzile mari (nunți, evenimente corporate), recomandăm o rezervare cu 1-3 săptămâni înainte.' },
   { q:'Pot modifica ingredientele sau aroma?', a:'Da, majoritatea produselor pot fi adaptate. Detaliile legate de arome, decor și cantitate se stabilesc împreună cu echipa noastră, în urma solicitării de ofertă.' },
@@ -116,68 +105,13 @@ function lazyLoadImages(){
     loader.src = src;
   });
 }
-/* ---------- Render gallery ---------- */
-const galleryGrid = document.getElementById('galleryGrid');
-function renderGallery() {
-  galleryGrid.replaceChildren();
-  GALLERY.forEach((g, i) => {
-    const item = document.createElement('button');
-    item.type = 'button';
-    item.className = 'gallery-item' + (g.tall ? ' tall' : '');
-    item.setAttribute('aria-label', `Mărește fotografia: ${g.label}`);
-    const image = document.createElement('img');
-    image.src = g.img;
-    image.alt = g.alt || g.label;
-    image.loading = 'lazy';
-    const caption = document.createElement('span');
-    caption.className = 'gallery-label';
-    const title = document.createElement('strong');
-    title.textContent = g.label;
-    caption.append(title);
-    if (g.description) {
-      const description = document.createElement('small');
-      description.textContent = g.description;
-      caption.append(description);
-    }
-    item.append(image, caption);
-    item.addEventListener('click', () => openLightbox(i));
-    galleryGrid.appendChild(item);
-  });
-}
-
 window.MAISON_CONTENT.load().then(data => {
   PRODUCTS = window.MAISON_CONTENT.products(data) ?? PRODUCTS;
-  GALLERY = window.MAISON_CONTENT.gallery(data) ?? GALLERY;
-  const galleryText = data?.galerie;
-  if (galleryText) {
-    document.getElementById('galleryEyebrow').textContent = galleryText.supratitlu || 'Portofoliu';
-    document.getElementById('galleryTitle').textContent = galleryText.titlu || 'Galerie';
-    document.getElementById('galleryDescription').textContent = galleryText.descriere || '';
-  }
   renderProducts(window.MAISON_CONTENT.categories(data));
-  renderGallery();
   if (window.location.hash.startsWith('#produse-')) {
     document.getElementById(window.location.hash.slice(1))?.scrollIntoView();
   }
 });
-
-let lbIndex = 0;
-function openLightbox(i){
-  lbIndex = i;
-  document.getElementById('lightboxImg').src = GALLERY[i].img.replace('w=700','w=1400');
-  document.getElementById('lightboxImg').alt = GALLERY[i].alt || GALLERY[i].label;
-  document.getElementById('lightboxCaption').textContent = [GALLERY[i].label, GALLERY[i].description].filter(Boolean).join(' — ');
-  document.getElementById('lightbox').classList.add('open');
-}
-function closeLightbox(){ document.getElementById('lightbox').classList.remove('open'); }
-function moveLightbox(dir){
-  lbIndex = (lbIndex + dir + GALLERY.length) % GALLERY.length;
-  document.getElementById('lightboxImg').src = GALLERY[lbIndex].img.replace('w=700','w=1400');
-  document.getElementById('lightboxImg').alt = GALLERY[lbIndex].alt || GALLERY[lbIndex].label;
-  document.getElementById('lightboxCaption').textContent = [GALLERY[lbIndex].label, GALLERY[lbIndex].description].filter(Boolean).join(' — ');
-}
-document.getElementById('lightbox').addEventListener('click', (e) => { if(e.target.id === 'lightbox') closeLightbox(); });
-document.addEventListener('keydown', (e) => { if(e.key === 'Escape') closeLightbox(); });
 
 /* ---------- Render FAQ ---------- */
 const faqList = document.getElementById('faqList');
@@ -330,6 +264,3 @@ document.getElementById('testiPrev').addEventListener('click',()=>moveTesti(-1))
 document.getElementById('testiNext').addEventListener('click',()=>moveTesti(1));
 document.getElementById('cookieNecessary').addEventListener('click',()=>setCookieConsent(false));
 document.getElementById('cookieAccept').addEventListener('click',()=>setCookieConsent(true));
-document.getElementById('lightboxClose').addEventListener('click',closeLightbox);
-document.getElementById('lightboxPrev').addEventListener('click',()=>moveLightbox(-1));
-document.getElementById('lightboxNext').addEventListener('click',()=>moveLightbox(1));

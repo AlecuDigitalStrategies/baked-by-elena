@@ -3,6 +3,8 @@ window.createProductEditor = function createProductEditor({ $, api, setStatus, i
   let creating = false;
   let dirty = false;
   let previewUrls = [];
+  let fieldSnapshot = [];
+  const removedPositions = new Set();
 
   const fieldNames = {
     categorie: 'productCategory', nume: 'productName', pret: 'productPrice',
@@ -13,6 +15,8 @@ window.createProductEditor = function createProductEditor({ $, api, setStatus, i
   const fields = Object.fromEntries(Object.entries(fieldNames).map(([key, id]) => [key, $(id)]));
   const photoInputs = [1, 2, 3].map(position => $(`productImage${position}`));
   const photoPreviews = [1, 2, 3].map(position => $(`productImagePreview${position}`));
+  const photoRemoveButtons = [1, 2, 3].map(position => $(`productImageRemove${position}`));
+  const photoStatuses = [1, 2, 3].map(position => $(`productImageStatus${position}`));
 
   function products() { return state.data?.produse?.articole || []; }
   function current() { return products().find(item => item.id === selectedId); }
@@ -21,10 +25,22 @@ window.createProductEditor = function createProductEditor({ $, api, setStatus, i
     dirty = value;
     $('productDirtyMark').hidden = !value;
   }
+  function fieldValues() {
+    return Object.values(fields).map(field => field.type === 'checkbox' ? field.checked : field.value);
+  }
+  function photoCount() {
+    return photoInputs.reduce((count, input, index) =>
+      count + Number(Boolean(input.files?.[0] || (current()?.imagini?.[index] && !removedPositions.has(index + 1)))), 0);
+  }
+  function updateDirty() {
+    markDirty(JSON.stringify(fieldValues()) !== JSON.stringify(fieldSnapshot) ||
+      photoInputs.some(input => input.files?.length) || removedPositions.size > 0);
+  }
   function clearPreviews() {
     previewUrls.forEach(url => URL.revokeObjectURL(url));
     previewUrls = [];
     photoInputs.forEach(input => { input.value = ''; });
+    removedPositions.clear();
   }
   function renderPhotoPreviews() {
     previewUrls.forEach(url => URL.revokeObjectURL(url));
@@ -32,18 +48,26 @@ window.createProductEditor = function createProductEditor({ $, api, setStatus, i
     photoPreviews.forEach((preview, index) => {
       const file = photoInputs[index].files?.[0];
       const oldSource = current()?.imagini?.[index];
+      const removed = removedPositions.has(index + 1);
+      const button = photoRemoveButtons[index];
+      const status = photoStatuses[index];
       if (file) {
         const url = URL.createObjectURL(file);
         previewUrls.push(url);
         preview.src = url;
         preview.hidden = false;
-      } else if (oldSource) {
+      } else if (oldSource && !removed) {
         preview.src = imageUrl(oldSource);
         preview.hidden = false;
       } else {
         preview.removeAttribute('src');
         preview.hidden = true;
       }
+      button.hidden = !file && !oldSource;
+      button.textContent = file ? 'Anulează selecția' : removed ? 'Anulează eliminarea' : 'Elimină fotografia';
+      button.setAttribute('aria-label', `${button.textContent} ${index + 1}`);
+      status.hidden = !removed;
+      status.textContent = removed ? 'Se elimină din produs la salvare.' : '';
     });
   }
   function renderList() {
@@ -96,6 +120,7 @@ window.createProductEditor = function createProductEditor({ $, api, setStatus, i
     fields.eticheta.value = item?.eticheta || '';
     fields.vizibil.checked = item?.vizibil !== false;
     $('productSelectedNumber').textContent = item ? `#${products().findIndex(entry => entry.id === item.id) + 1}` : 'Nou';
+    fieldSnapshot = fieldValues();
     markDirty(false);
     renderPhotoPreviews();
     renderList();
@@ -140,9 +165,35 @@ window.createProductEditor = function createProductEditor({ $, api, setStatus, i
   function lines(value) { return value.split(/\r?\n/).map(line => line.trim()).filter(Boolean); }
 
   $('newProductButton').addEventListener('click', startNew);
-  Object.values(fields).forEach(field => field.addEventListener('input', () => markDirty(true)));
-  photoInputs.forEach(input => input.addEventListener('change', () => {
-    markDirty(true);
+  Object.values(fields).forEach(field => field.addEventListener('input', updateDirty));
+  photoInputs.forEach((input, index) => input.addEventListener('change', () => {
+    if (input.files?.[0]) removedPositions.delete(index + 1);
+    updateDirty();
+    renderPhotoPreviews();
+  }));
+  photoRemoveButtons.forEach((button, index) => button.addEventListener('click', () => {
+    const position = index + 1;
+    if (photoInputs[index].files?.[0]) {
+      photoInputs[index].value = '';
+      updateDirty();
+      renderPhotoPreviews();
+      setStatus(`Selecția fotografiei ${position} a fost anulată.`);
+      return;
+    }
+    if (!current()?.imagini?.[index]) return;
+    if (removedPositions.has(position)) {
+      removedPositions.delete(position);
+      setStatus(`Eliminarea fotografiei ${position} a fost anulată.`);
+    } else {
+      removedPositions.add(position);
+      if (!photoCount()) {
+        removedPositions.delete(position);
+        setStatus('Produsul trebuie să păstreze cel puțin o fotografie.', 'error');
+        return;
+      }
+      setStatus(`Fotografia ${position} va fi eliminată din produs când apeși „Salvează produsul”.`);
+    }
+    updateDirty();
     renderPhotoPreviews();
   }));
 
@@ -157,8 +208,8 @@ window.createProductEditor = function createProductEditor({ $, api, setStatus, i
       return;
     }
     const files = photoInputs.map(input => input.files?.[0] || null);
-    if (creating && !files.some(Boolean)) {
-      setStatus('Încarcă cel puțin o fotografie pentru produsul nou.', 'error');
+    if (!photoCount()) {
+      setStatus('Produsul trebuie să aibă cel puțin o fotografie.', 'error');
       return;
     }
     const totalBytes = files.reduce((total, file) => total + (file?.size || 0), 0);
@@ -183,6 +234,7 @@ window.createProductEditor = function createProductEditor({ $, api, setStatus, i
     const form = new FormData();
     form.append('product', JSON.stringify(product));
     form.append('revision', state.revision);
+    form.append('removeImages', JSON.stringify([...removedPositions].sort((a, b) => a - b)));
     files.forEach((file, index) => { if (file) form.append(`image${index + 1}`, file); });
     $('saveProductButton').disabled = true;
     setStatus('Se salvează produsul și fotografiile în GitHub…');

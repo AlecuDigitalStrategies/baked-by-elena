@@ -8,7 +8,7 @@ if (!product) {
   document.getElementById('productNotFound').hidden = false;
 } else {
   document.getElementById('productDetail').hidden = false;
-  document.title = `${product.name} — Maison Dulce`;
+  document.title = `${product.name} — Baked by Elena`;
   document.getElementById('breadcrumbName').textContent = product.name;
   document.getElementById('detailName').textContent = product.name;
   document.getElementById('detailDescription').textContent = product.desc;

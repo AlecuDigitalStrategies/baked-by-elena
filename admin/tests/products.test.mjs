@@ -35,14 +35,19 @@ test('cititorul public folosește data.json și respectă vizibilitatea', async 
   withDefaults.produse.articole[0].vizibil = true;
   delete withDefaults.produse.articole[0].descriere;
   assert.equal(content.products(withDefaults).find(item => item.id === withDefaults.produse.articole[0].id).desc, data.produse.implicite.descriere);
-  withDefaults.galerie.imagini[0].vizibila = true;
-  withDefaults.galerie.imagini[0].descriere = 'Descriere de test';
-  assert.equal(content.gallery(withDefaults).find(item => item.img === withDefaults.galerie.imagini[0].src).description, 'Descriere de test');
   const hidden = structuredClone(data);
   hidden.produse.articole.find(item => item.vizibil !== false).vizibil = false;
-  hidden.galerie.imagini.find(item => item.vizibila !== false).vizibila = false;
   assert.equal(content.products(hidden).length, products.length - 1);
-  assert.equal(content.gallery(hidden).length, content.gallery(data).length - 1);
+});
+
+test('galeria rămâne arhivată, fără secțiune sau script pe site-ul public', async () => {
+  const page = await readFile(new URL('../../index.html', import.meta.url), 'utf8');
+  const script = await readFile(new URL('../../script.js', import.meta.url), 'utf8');
+  const admin = await readFile(new URL('../index.html', import.meta.url), 'utf8');
+  assert.ok(Array.isArray(data.galerie.imagini) && data.galerie.imagini.length > 0);
+  assert.doesNotMatch(page, /id="galerie"|id="galleryGrid"|id="lightbox"/);
+  assert.doesNotMatch(script, /galleryGrid|renderGallery|openLightbox/);
+  assert.match(admin, /Galerie \(arhivă\)/);
 });
 
 test('validarea produselor refuză categorii și câmpuri invalide', () => {
@@ -101,6 +106,62 @@ test('salvarea unui produs nou păstrează galeria și scrie fotografia plus dat
     assert.equal(savedData.produse.articole.length, data.produse.articole.length + 1);
     assert.deepEqual(savedData.galerie, data.galerie);
     assert.equal(writes[1].body.sha, 'old-sha');
+  } finally {
+    globalThis.fetch = originalFetch;
+    globalThis.netlifyIdentityContext = originalIdentity;
+    for (const key of keys) {
+      if (oldEnv[key] === undefined) delete process.env[key];
+      else process.env[key] = oldEnv[key];
+    }
+  }
+});
+
+test('eliminarea unei fotografii actualizează doar produsul și refuză eliminarea tuturor', async () => {
+  const originalFetch = globalThis.fetch;
+  const originalIdentity = globalThis.netlifyIdentityContext;
+  const keys = ['GITHUB_OWNER', 'GITHUB_REPO', 'GITHUB_BRANCH', 'GITHUB_TOKEN'];
+  const oldEnv = Object.fromEntries(keys.map(key => [key, process.env[key]]));
+  Object.assign(process.env, {
+    GITHUB_OWNER: 'owner', GITHUB_REPO: 'repo', GITHUB_BRANCH: 'main', GITHUB_TOKEN: 'secret'
+  });
+  globalThis.netlifyIdentityContext = { user: { sub: 'admin-1', email: 'elena@example.com', app_metadata: { roles: ['admin'] } } };
+  const writes = [];
+  globalThis.fetch = async (_url, options) => {
+    if (options.method === 'GET') {
+      return Response.json({ type: 'file', sha: 'old-sha', content: Buffer.from(JSON.stringify(data)).toString('base64') });
+    }
+    writes.push(JSON.parse(options.body));
+    return Response.json({ content: { sha: `sha-${writes.length}` } });
+  };
+  try {
+    const existing = data.produse.articole.find(item => item.imagini.length === 3);
+    const requestFor = positions => {
+      const form = new FormData();
+      form.append('revision', 'old-sha');
+      form.append('removeImages', JSON.stringify(positions));
+      form.append('product', JSON.stringify({
+        id: existing.id, categorie: existing.categorie, nume: existing.nume, pret: existing.pret,
+        descriere: '', blat: '', creme: [], asocieri: [], alergeni: ['Se confirmă la comandă'],
+        nota: '', eticheta: '', vizibil: true
+      }));
+      return new Request('https://exemplu.netlify.app/.netlify/functions/admin-save-product', {
+        method: 'POST', headers: { Origin: 'https://exemplu.netlify.app' }, body: form
+      });
+    };
+    const response = await saveProduct(requestFor([2]));
+    assert.equal(response.status, 200);
+    const result = await response.json();
+    assert.deepEqual(result.product.imagini, [existing.imagini[0], existing.imagini[2]]);
+    assert.equal(writes.length, 1);
+    const savedData = JSON.parse(Buffer.from(writes[0].content, 'base64').toString('utf8'));
+    assert.deepEqual(savedData.produse.articole.find(item => item.id === existing.id).imagini, result.product.imagini);
+    assert.deepEqual(savedData.galerie, data.galerie);
+
+    writes.length = 0;
+    const invalid = await saveProduct(requestFor([1, 2, 3]));
+    assert.equal(invalid.status, 400);
+    assert.match((await invalid.json()).error, /cel puțin o fotografie/);
+    assert.equal(writes.length, 0);
   } finally {
     globalThis.fetch = originalFetch;
     globalThis.netlifyIdentityContext = originalIdentity;

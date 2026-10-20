@@ -4,20 +4,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex, nofollow">
-  <title>Administrare galerie — Maison Dulce</title>
+  <title>Administrare produse — Baked by Elena</title>
   <link rel="stylesheet" href="./admin.css">
   <script src="./products-editor.js" defer></script>
   <script src="./admin.js" defer></script>
 </head>
 <body>
   <header class="topbar">
-    <div class="brand"><span class="brand-mark">MD</span><span>Maison Dulce <small>Administrare conținut</small></span></div>
-    <a href="../index.html#galerie" class="site-link">Vezi site-ul <span aria-hidden="true">↗</span></a>
+    <div class="brand"><span class="brand-mark">BE</span><span>Baked by Elena <small>Administrare conținut</small></span></div>
+    <a href="../index.html#produse" class="site-link">Vezi site-ul <span aria-hidden="true">↗</span></a>
   </header>
 
   <main class="page-shell">
     <div class="page-intro">
-      <div><p class="eyebrow">Galerie · prima versiune</p><h1>Fotografii și descrieri</h1><p>Alege o fotografie, corectează textele și verifică previzualizarea înainte de salvare.</p></div>
+      <div><p class="eyebrow">Administrare conținut</p><h1>Produse și fotografii</h1><p>Editează produsele afișate pe site. Fotografiile din fosta galerie rămân disponibile separat, ca arhivă.</p></div>
       <div class="account"><span id="accountName">Se verifică accesul…</span><button id="logoutButton" type="button" hidden>Deconectare</button></div>
     </div>
 
@@ -58,12 +58,13 @@
 
     <div id="editor" hidden>
       <nav class="editor-tabs" aria-label="Secțiuni de administrare">
-        <button id="galleryTab" class="editor-tab active" type="button" aria-current="page">Galerie</button>
-        <button id="productsTab" class="editor-tab" type="button">Produse</button>
+        <button id="productsTab" class="editor-tab active" type="button" aria-current="page">Produse</button>
+        <button id="galleryTab" class="editor-tab" type="button">Galerie (arhivă)</button>
       </nav>
-      <div id="galleryEditor" class="editor-layout">
+      <div id="galleryEditor" class="editor-layout" hidden>
       <section class="gallery-panel" aria-labelledby="galleryHeading">
         <div class="panel-heading"><div><p class="eyebrow">Conținut existent</p><h2 id="galleryHeading">Imaginile din galerie <span id="imageCount"></span></h2></div><div class="panel-actions"><button id="newGalleryButton" class="text-button" type="button">+ Adaugă fotografie</button><button id="reloadButton" class="text-button" type="button">Reîncarcă</button></div></div>
+        <p class="field-hint">Arhivă: aceste imagini și descrieri nu mai apar pe site-ul public. Pentru fotografiile vizibile clienților, folosește fila Produse.</p>
         <div id="galleryList" class="gallery-list"></div>
       </section>
 
@@ -86,17 +87,17 @@
           <p class="field-hint">Descrie ce se vede în imagine; este util persoanelor care folosesc un cititor de ecran.</p>
 
           <div class="switches">
-            <label><input id="imageVisible" name="visible" type="checkbox"> Afișează în galerie</label>
-            <label><input id="imageTall" name="tall" type="checkbox"> Imagine înaltă în grilă</label>
+            <label><input id="imageVisible" name="visible" type="checkbox"> Marcaj de vizibilitate arhivat</label>
+            <label><input id="imageTall" name="tall" type="checkbox"> Marcaj de imagine înaltă arhivat</label>
           </div>
 
           <div class="form-actions"><button id="saveButton" class="button button-primary" type="submit">Salvează fotografia și textele</button><span id="dirtyMark" class="dirty-mark" hidden>Modificări nesalvate</span></div>
-          <p class="save-help">După salvare, modificările apar în galeria publică după publicarea automată pe Netlify. Aceasta poate dura câteva minute.</p>
+          <p class="save-help">Modificările sunt păstrate în arhivă, dar nu apar pe site-ul public. Pentru conținutul vizibil clienților, editează produsele.</p>
         </form>
       </section>
       </div>
 
-      <div id="productsEditor" class="editor-layout" hidden>
+      <div id="productsEditor" class="editor-layout">
         <section class="gallery-panel" aria-labelledby="productsHeading">
           <div class="panel-heading"><div><p class="eyebrow">Catalog</p><h2 id="productsHeading">Produse <span id="productCount"></span></h2></div><button id="newProductButton" class="text-button" type="button">+ Adaugă produs</button></div>
           <p class="field-hint">Alege un produs din Torturi, Prăjituri sau Cozonaci pentru a-i schimba detaliile.</p>
@@ -128,12 +129,13 @@
             <input id="productTag" type="text" maxlength="30" placeholder="ex. Nou">
             <div class="switches"><label><input id="productVisible" type="checkbox" checked> Afișează produsul pe site</label></div>
             <h3 class="product-photos-heading">Fotografii produs</h3>
-            <p class="field-hint">Poți înlocui oricare dintre cele 3 fotografii. Pentru un produs nou, încarcă cel puțin una. JPEG, PNG sau WebP; max. 3 MB fiecare și 4 MB împreună.</p>
+            <p class="field-hint">Poți înlocui sau elimina oricare dintre cele 3 fotografii. Produsul trebuie să păstreze cel puțin una. JPEG, PNG sau WebP; max. 3 MB fiecare și 4 MB împreună.</p>
             <div class="product-photo-fields">
-              <div><img id="productImagePreview1" alt="Fotografia 1" hidden><label for="productImage1" class="field-label">Fotografia 1</label><input id="productImage1" type="file" accept="image/jpeg,image/png,image/webp"></div>
-              <div><img id="productImagePreview2" alt="Fotografia 2" hidden><label for="productImage2" class="field-label">Fotografia 2</label><input id="productImage2" type="file" accept="image/jpeg,image/png,image/webp"></div>
-              <div><img id="productImagePreview3" alt="Fotografia 3" hidden><label for="productImage3" class="field-label">Fotografia 3</label><input id="productImage3" type="file" accept="image/jpeg,image/png,image/webp"></div>
+              <div><img id="productImagePreview1" alt="Fotografia 1" hidden><label for="productImage1" class="field-label">Fotografia 1</label><input id="productImage1" type="file" accept="image/jpeg,image/png,image/webp"><button id="productImageRemove1" class="product-photo-remove" type="button" hidden>Elimină fotografia</button><span id="productImageStatus1" class="product-photo-status" hidden></span></div>
+              <div><img id="productImagePreview2" alt="Fotografia 2" hidden><label for="productImage2" class="field-label">Fotografia 2</label><input id="productImage2" type="file" accept="image/jpeg,image/png,image/webp"><button id="productImageRemove2" class="product-photo-remove" type="button" hidden>Elimină fotografia</button><span id="productImageStatus2" class="product-photo-status" hidden></span></div>
+              <div><img id="productImagePreview3" alt="Fotografia 3" hidden><label for="productImage3" class="field-label">Fotografia 3</label><input id="productImage3" type="file" accept="image/jpeg,image/png,image/webp"><button id="productImageRemove3" class="product-photo-remove" type="button" hidden>Elimină fotografia</button><span id="productImageStatus3" class="product-photo-status" hidden></span></div>
             </div>
+            <p class="field-hint">Eliminarea se aplică după „Salvează produsul”; fotografiile rămase ocupă pozițiile libere. Fișierul vechi rămâne în repository pentru recuperare.</p>
             <div class="form-actions"><button id="saveProductButton" class="button button-primary" type="submit">Salvează produsul</button><span id="productDirtyMark" class="dirty-mark" hidden>Modificări nesalvate</span></div>
             <p class="save-help">Numele, prețul, descrierea și fotografiile vor apărea pe site după publicarea automată. Detaliile complete apar în pagina produsului.</p>
           </form>

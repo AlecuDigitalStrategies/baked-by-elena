@@ -132,6 +132,7 @@ function showEditor(data, revision = null) {
   $('saveButton').disabled = !state.authorized;
   selectItem(data.galerie.imagini[0].id);
   productsEditor.load();
+  showTab($('productsTab').disabled ? 'gallery' : 'products');
 }
 
 async function api(name, options = {}) {
@@ -161,7 +162,7 @@ $('productsTab').addEventListener('click', () => showTab('products'));
 async function loadRemote() {
   const result = await api('admin-content');
   showEditor(result.data, result.revision);
-  setStatus('Galeria este pregătită pentru editare. Alege o imagine.', 'success');
+  setStatus('Produsele sunt pregătite pentru editare. Fotografiile din galerie sunt păstrate ca arhivă.', 'success');
 }
 
 async function loadLocal() {
@@ -352,7 +353,7 @@ $('editForm').addEventListener('submit', async event => {
     markDirty(false);
     renderCards();
     updatePreview();
-    setStatus('Salvat în GitHub. Netlify va publica automat modificarea; poate dura câteva minute.', 'success');
+    setStatus('Salvat în arhiva din GitHub. Galeria nu mai este afișată pe site; pentru fotografii publice, editează produsele.', 'success');
   } catch (error) {
     setStatus(error.message, 'error');
   } finally {
