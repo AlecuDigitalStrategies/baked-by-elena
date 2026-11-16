@@ -124,14 +124,27 @@
       {
         "id": "medovik",
         "categorie": "torturi",
-        "nume": "Tort Medovik",
-        "pret": "100 lei",
+        "nume": "Tort Ferrero Rocher",
+        "pret": "110 lei",
         "imagini": [
           "assets/img/WhatsApp Image 2025-01-08 at 19.44.00 (1).jpeg",
           "assets/img/cutie_prajituri_2.jpeg",
           "assets/img/WhatsApp Image 2025-01-08 at 19.12.06.jpeg"
         ],
-        "vizibil": true
+        "vizibil": true,
+        "descriere": "Pregătit la comandă. Compoziția și decorul se stabilesc împreună.",
+        "blat": "Tipul de blat se confirmă pentru rețeta aleasă.",
+        "creme": [
+          "Cremele și umpluturile se stabilesc împreună la comandă."
+        ],
+        "asocieri": [
+          "Mousse-urile și confiturile de fructe se pot combina după preferință, în funcție de rețetă."
+        ],
+        "alergeni": [
+          "Lista se confirmă pentru rețeta finală."
+        ],
+        "nota": "Fotografiile sunt de prezentare. Ingredientele, alergenii și prețul final se confirmă înainte de preparare.",
+        "eticheta": ""
       },
       {
         "id": "morcovi",
