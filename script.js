@@ -145,6 +145,8 @@ function toggleFaq(i) {
 
 /* ---------- Testimonial carousel ---------- */
 const testiSlides = document.getElementById('testiSlides');
+const testiTrack = document.querySelector('.testi-track');
+const testiWrap = document.querySelector('.testi-wrap');
 const slideCount = testiSlides.children.length;
 let testiIndex = 0;
 const testiDots = document.getElementById('testiDots');
@@ -152,7 +154,7 @@ for (let i = 0; i < slideCount; i++) {
   const d = document.createElement('button');
   d.className = 'dot' + (i === 0 ? ' active' : '');
   d.setAttribute('aria-label', 'Mesajul ' + (i + 1));
-  d.addEventListener('click', () => { testiIndex = i; updateTesti(); });
+  d.addEventListener('click', () => { testiIndex = i; updateTesti(); startTestiAuto(); });
   testiDots.appendChild(d);
 }
 function updateTesti() {
@@ -163,9 +165,76 @@ function moveTesti(dir) {
   testiIndex = (testiIndex + dir + slideCount) % slideCount;
   updateTesti();
 }
-let testiAuto = setInterval(() => moveTesti(1), 6000);
-document.querySelector('.testi-wrap').addEventListener('mouseenter', () => clearInterval(testiAuto));
-document.querySelector('.testi-wrap').addEventListener('mouseleave', () => testiAuto = setInterval(() => moveTesti(1), 6000));
+let testiAuto;
+let testiHovering = false;
+let testiDragging = false;
+let testiPointerId = null;
+let testiStartX = 0;
+let testiStartY = 0;
+let testiHorizontalDrag = false;
+function stopTestiAuto() {
+  clearInterval(testiAuto);
+  testiAuto = null;
+}
+function startTestiAuto() {
+  stopTestiAuto();
+  if (slideCount > 1 && !testiHovering && !testiDragging &&
+      !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    testiAuto = setInterval(() => moveTesti(1), 6000);
+  }
+}
+testiWrap.addEventListener('mouseenter', () => {
+  if (!window.matchMedia('(hover: hover)').matches) return;
+  testiHovering = true;
+  stopTestiAuto();
+});
+testiWrap.addEventListener('mouseleave', () => {
+  testiHovering = false;
+  startTestiAuto();
+});
+testiTrack.addEventListener('pointerdown', event => {
+  if (slideCount < 2 || (event.pointerType === 'mouse' && event.button !== 0)) return;
+  testiDragging = true;
+  testiPointerId = event.pointerId;
+  testiStartX = event.clientX;
+  testiStartY = event.clientY;
+  testiHorizontalDrag = false;
+  testiSlides.style.transition = 'none';
+  testiTrack.classList.add('is-dragging');
+  if (testiTrack.setPointerCapture) testiTrack.setPointerCapture(event.pointerId);
+  stopTestiAuto();
+});
+testiTrack.addEventListener('pointermove', event => {
+  if (!testiDragging || event.pointerId !== testiPointerId) return;
+  const dx = event.clientX - testiStartX;
+  const dy = event.clientY - testiStartY;
+  if (!testiHorizontalDrag && Math.abs(dx) > 8 && Math.abs(dx) > Math.abs(dy)) {
+    testiHorizontalDrag = true;
+  }
+  if (!testiHorizontalDrag) return;
+  const atEdge = (testiIndex === 0 && dx > 0) || (testiIndex === slideCount - 1 && dx < 0);
+  const offset = atEdge ? dx * 0.28 : dx;
+  testiSlides.style.transform = `translate3d(${-testiIndex * testiTrack.clientWidth + offset}px, 0, 0)`;
+});
+function finishTestiDrag(event, allowSwipe) {
+  if (!testiDragging || event.pointerId !== testiPointerId) return;
+  const threshold = Math.min(90, Math.max(40, testiTrack.clientWidth * 0.16));
+  const dx = allowSwipe ? event.clientX - testiStartX : 0;
+  const dy = allowSwipe ? event.clientY - testiStartY : 0;
+  if (allowSwipe && Math.abs(dx) > Math.abs(dy) && Math.abs(dx) >= threshold) {
+    testiIndex = Math.max(0, Math.min(slideCount - 1, testiIndex + (dx < 0 ? 1 : -1)));
+  }
+  testiDragging = false;
+  testiPointerId = null;
+  testiTrack.classList.remove('is-dragging');
+  testiSlides.style.transition = '';
+  updateTesti();
+  startTestiAuto();
+}
+testiTrack.addEventListener('pointerup', event => finishTestiDrag(event, true));
+testiTrack.addEventListener('pointercancel', event => finishTestiDrag(event, false));
+testiTrack.addEventListener('lostpointercapture', event => finishTestiDrag(event, false));
+startTestiAuto();
 
 /* ---------- Custom cake form validation ---------- */
 const ccForm = document.getElementById('customCakeForm');
@@ -260,7 +329,7 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
 /* Controls extracted from inline HTML handlers */
 document.getElementById('closePromo').addEventListener('click', () => document.getElementById('promoBanner').hidden = true);
 document.getElementById('menuButton').addEventListener('click', toggleMenu);
-document.getElementById('testiPrev').addEventListener('click', () => moveTesti(-1));
-document.getElementById('testiNext').addEventListener('click', () => moveTesti(1));
+document.getElementById('testiPrev').addEventListener('click', () => { moveTesti(-1); startTestiAuto(); });
+document.getElementById('testiNext').addEventListener('click', () => { moveTesti(1); startTestiAuto(); });
 document.getElementById('cookieNecessary').addEventListener('click', () => setCookieConsent(false));
 document.getElementById('cookieAccept').addEventListener('click', () => setCookieConsent(true));

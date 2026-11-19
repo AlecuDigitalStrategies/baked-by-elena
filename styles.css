@@ -209,7 +209,8 @@
 
   /* Testimonials */
   .testi-wrap{ position:relative; max-width:760px; margin:0 auto;}
-  .testi-track{ overflow:hidden;}
+  .testi-track{ overflow:hidden; touch-action:pan-y; cursor:grab;}
+  .testi-track.is-dragging{cursor:grabbing;user-select:none;-webkit-user-select:none;}
   .testi-slides{ display:flex; transition:transform .5s ease;}
   .testi-slide{ min-width:100%; padding:0 6px; display:flex;}
   .testi-card{ flex:1; display:flex; flex-direction:column; justify-content:center; background:var(--card); border-radius:var(--radius); padding:40px; text-align:center; box-shadow:var(--shadow-sm);}
