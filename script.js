@@ -3,14 +3,14 @@
 let PRODUCTS = window.MAISON_PRODUCTS || [];
 
 const FAQS = [
-  { q:'Cu cât timp înainte trebuie să comand un tort?', a:'Pentru torturile din gama standard recomandăm minimum 48 de ore. Pentru torturile personalizate sau comenzile mari (nunți, evenimente corporate), recomandăm o rezervare cu 1-3 săptămâni înainte.' },
-  { q:'Pot modifica ingredientele sau aroma?', a:'Da, majoritatea produselor pot fi adaptate. Detaliile legate de arome, decor și cantitate se stabilesc împreună cu echipa noastră, în urma solicitării de ofertă.' },
-  { q:'Realizați produse fără zahăr, fără gluten sau fără lactoză?', a:'Oferim variante adaptate pentru anumite restricții alimentare. Te rugăm să confirmi direct cu personalul cofetăriei disponibilitatea și condițiile pentru fiecare tip de restricție.' },
-  { q:'Cum se calculează prețul unui tort personalizat?', a:'Prețul depinde de greutate, complexitatea decorului, aroma aleasă și numărul de persoane. Primești o ofertă clară după completarea formularului de comandă personalizată.' },
-  { q:'Pot trimite o fotografie ca model?', a:'Da, poți încărca o fotografie de inspirație direct în formularul de comandă personalizată, iar echipa noastră o va folosi ca reper pentru propunere.' },
-  { q:'Cum primesc tortul?', a:'Comenzile se ridică personal, la data și ora stabilite împreună. Nu oferim livrare.' },
-  { q:'Cum pot plăti?', a:'Modalitatea de plată se confirmă când stabilim detaliile comenzii.' },
-  { q:'Pot anula sau modifica o comandă?', a:'Scrie-ne cât mai curând pe WhatsApp sau sună-ne. Posibilitatea modificării depinde de stadiul pregătirii.' }
+  { q: 'Cu cât timp înainte trebuie să comand un tort?', a: 'Pentru torturile din gama standard recomandăm minimum 48 de ore. Pentru torturile personalizate sau comenzile mari (nunți, evenimente corporate), recomandăm o rezervare cu 1-3 săptămâni înainte.' },
+  { q: 'Pot modifica ingredientele sau aroma?', a: 'Da, majoritatea produselor pot fi adaptate. Detaliile legate de arome, decor și cantitate se stabilesc împreună cu echipa noastră, în urma solicitării de ofertă.' },
+  { q: 'Realizați produse fără zahăr, fără gluten sau fără lactoză?', a: 'Oferim variante adaptate pentru anumite restricții alimentare. Te rugăm să confirmi direct cu personalul disponibilitatea și condițiile pentru fiecare tip de restricție.' },
+  { q: 'Cum se calculează prețul unui tort personalizat?', a: 'Prețul depinde de greutate, complexitatea decorului, aroma aleasă și numărul de persoane. Primești o ofertă clară după completarea formularului de comandă personalizată.' },
+  { q: 'Pot trimite o fotografie ca model?', a: 'Da, poți încărca o fotografie de inspirație direct în formularul de comandă personalizată, iar echipa noastră o va folosi ca reper pentru propunere.' },
+  { q: 'Cum primesc tortul?', a: 'Comenzile se ridică personal, la data și ora stabilite împreună. Nu oferim livrare.' },
+  { q: 'Cum pot plăti?', a: 'Modalitatea de plată se confirmă când stabilim detaliile comenzii.' },
+  { q: 'Pot anula sau modifica o comandă?', a: 'Scrie-ne cât mai curând pe WhatsApp sau sună-ne. Posibilitatea modificării depinde de stadiul pregătirii.' }
 ];
 
 /* ---------- Header scroll state ---------- */
@@ -21,17 +21,17 @@ window.addEventListener('scroll', () => {
 
 /* ---------- Mobile menu ---------- */
 const mainNav = document.getElementById('mainNav');
-function toggleMenu(){ mainNav.classList.toggle('open'); }
+function toggleMenu() { mainNav.classList.toggle('open'); }
 mainNav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mainNav.classList.remove('open')));
 
 /* ---------- Toasts ---------- */
-function showToast(msg, type){
+function showToast(msg, type) {
   const wrap = document.getElementById('toastWrap');
   const t = document.createElement('div');
   t.className = 'toast' + (type === 'error' ? ' error' : '');
   t.innerHTML = (type === 'error' ? '⚠️ ' : '✓ ') + msg;
   wrap.appendChild(t);
-  setTimeout(() => { t.classList.add('is-hiding'); setTimeout(()=>t.remove(), 300); }, 3800);
+  setTimeout(() => { t.classList.add('is-hiding'); setTimeout(() => t.remove(), 300); }, 3800);
 }
 
 /* ---------- Render products ---------- */
@@ -97,7 +97,7 @@ function renderProducts(categories) {
 }
 
 /* Progressive image loading */
-function lazyLoadImages(){
+function lazyLoadImages() {
   document.querySelectorAll('img[data-src]').forEach(img => {
     const src = img.getAttribute('data-src');
     const loader = new Image();
@@ -127,18 +127,18 @@ FAQS.forEach((f, i) => {
   item.querySelector('.faq-q').addEventListener('click', () => toggleFaq(i));
   faqList.appendChild(item);
 });
-function toggleFaq(i){
+function toggleFaq(i) {
   const item = faqList.children[i];
   const answer = document.getElementById('faq-a-' + i);
   const isOpen = item.classList.contains('open');
   faqList.querySelectorAll('.faq-item').forEach((el, idx) => {
     el.classList.remove('open');
-    el.querySelector('.faq-q').setAttribute('aria-expanded','false');
+    el.querySelector('.faq-q').setAttribute('aria-expanded', 'false');
     document.getElementById('faq-a-' + idx).style.maxHeight = null;
   });
-  if(!isOpen){
+  if (!isOpen) {
     item.classList.add('open');
-    item.querySelector('.faq-q').setAttribute('aria-expanded','true');
+    item.querySelector('.faq-q').setAttribute('aria-expanded', 'true');
     answer.style.maxHeight = answer.scrollHeight + 'px';
   }
 }
@@ -148,18 +148,18 @@ const testiSlides = document.getElementById('testiSlides');
 const slideCount = testiSlides.children.length;
 let testiIndex = 0;
 const testiDots = document.getElementById('testiDots');
-for(let i=0;i<slideCount;i++){
+for (let i = 0; i < slideCount; i++) {
   const d = document.createElement('button');
-  d.className = 'dot' + (i===0 ? ' active' : '');
-  d.setAttribute('aria-label', 'Recenzia ' + (i+1));
+  d.className = 'dot' + (i === 0 ? ' active' : '');
+  d.setAttribute('aria-label', 'Recenzia ' + (i + 1));
   d.addEventListener('click', () => { testiIndex = i; updateTesti(); });
   testiDots.appendChild(d);
 }
-function updateTesti(){
+function updateTesti() {
   testiSlides.style.transform = `translateX(-${testiIndex * 100}%)`;
-  [...testiDots.children].forEach((d,i) => d.classList.toggle('active', i===testiIndex));
+  [...testiDots.children].forEach((d, i) => d.classList.toggle('active', i === testiIndex));
 }
-function moveTesti(dir){
+function moveTesti(dir) {
   testiIndex = (testiIndex + dir + slideCount) % slideCount;
   updateTesti();
 }
@@ -169,23 +169,23 @@ document.querySelector('.testi-wrap').addEventListener('mouseleave', () => testi
 
 /* ---------- Custom cake form validation ---------- */
 const ccForm = document.getElementById('customCakeForm');
-ccForm.addEventListener('submit', function(e){
+ccForm.addEventListener('submit', function (e) {
   e.preventDefault();
   let valid = true;
-  const required = ['cc-nume','cc-telefon','cc-email','cc-eveniment','cc-data','cc-persoane'];
+  const required = ['cc-nume', 'cc-telefon', 'cc-email', 'cc-eveniment', 'cc-data', 'cc-persoane'];
   required.forEach(id => {
     const input = document.getElementById(id);
     const field = input.closest('.field');
     let ok = input.value.trim() !== '';
-    if(id === 'cc-email' && ok) ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value);
-    if(id === 'cc-telefon' && ok) ok = /^[0-9+()\s-]{7,}$/.test(input.value);
+    if (id === 'cc-email' && ok) ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value);
+    if (id === 'cc-telefon' && ok) ok = /^[0-9+()\s-]{7,}$/.test(input.value);
     field.classList.toggle('invalid', !ok);
-    if(!ok) valid = false;
+    if (!ok) valid = false;
   });
   const gdpr = document.getElementById('cc-gdpr');
-  if(!gdpr.checked){ valid = false; showToast('Te rugăm să confirmi acordul privind prelucrarea datelor.', 'error'); }
-  if(!valid){
-    if(gdpr.checked) showToast('Te rugăm să completezi corect câmpurile marcate.', 'error');
+  if (!gdpr.checked) { valid = false; showToast('Te rugăm să confirmi acordul privind prelucrarea datelor.', 'error'); }
+  if (!valid) {
+    if (gdpr.checked) showToast('Te rugăm să completezi corect câmpurile marcate.', 'error');
     return;
   }
   const lines = [
@@ -207,7 +207,7 @@ ccForm.addEventListener('submit', function(e){
 /* ---------- Cookie consent ---------- */
 const cookieBanner = document.getElementById('cookieBanner');
 setTimeout(() => cookieBanner.classList.add('show'), 1200);
-function setCookieConsent(accepted){
+function setCookieConsent(accepted) {
   cookieBanner.classList.remove('show');
   showToast(accepted ? 'Ai acceptat toate cookie-urile.' : 'Vor fi folosite doar cookie-urile necesare.');
 }
@@ -215,29 +215,29 @@ function setCookieConsent(accepted){
 /* ---------- Scroll reveal ---------- */
 const revealEls = document.querySelectorAll('.reveal');
 const io = new IntersectionObserver((entries) => {
-  entries.forEach(entry => { if(entry.isIntersecting){ entry.target.classList.add('visible'); io.unobserve(entry.target); } });
-}, { threshold:0.15 });
+  entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('visible'); io.unobserve(entry.target); } });
+}, { threshold: 0.15 });
 revealEls.forEach(el => io.observe(el));
 
 /* ---------- Animated stats counter ---------- */
 const statEls = document.querySelectorAll('.stat .num[data-count]');
 const statObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
-    if(entry.isIntersecting){
+    if (entry.isIntersecting) {
       const el = entry.target;
       const target = parseInt(el.getAttribute('data-count'), 10);
       const suffix = el.getAttribute('data-suffix') || '';
       let current = 0;
-      const step = Math.max(1, Math.ceil(target/60));
+      const step = Math.max(1, Math.ceil(target / 60));
       const timer = setInterval(() => {
         current += step;
-        if(current >= target){ current = target; clearInterval(timer); }
+        if (current >= target) { current = target; clearInterval(timer); }
         el.textContent = (target >= 1000 ? current.toLocaleString('ro-RO') : current) + suffix;
       }, 24);
       statObserver.unobserve(el);
     }
   });
-}, { threshold:0.4 });
+}, { threshold: 0.4 });
 statEls.forEach(el => statObserver.observe(el));
 
 /* ---------- Footer year ---------- */
@@ -245,10 +245,10 @@ document.getElementById('year').textContent = new Date().getFullYear();
 
 /* ---------- Smooth nav (skip default anchor jump quirks on mobile) ---------- */
 document.querySelectorAll('a[href^="#"]').forEach(link => {
-  link.addEventListener('click', function(e){
+  link.addEventListener('click', function (e) {
     const id = this.getAttribute('href').slice(1);
     const target = document.getElementById(id);
-    if(target){
+    if (target) {
       e.preventDefault();
       window.scrollTo({ top: target.offsetTop - 76, behavior: 'smooth' });
     }
@@ -258,9 +258,9 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
 
 
 /* Controls extracted from inline HTML handlers */
-document.getElementById('closePromo').addEventListener('click',()=>document.getElementById('promoBanner').hidden=true);
-document.getElementById('menuButton').addEventListener('click',toggleMenu);
-document.getElementById('testiPrev').addEventListener('click',()=>moveTesti(-1));
-document.getElementById('testiNext').addEventListener('click',()=>moveTesti(1));
-document.getElementById('cookieNecessary').addEventListener('click',()=>setCookieConsent(false));
-document.getElementById('cookieAccept').addEventListener('click',()=>setCookieConsent(true));
+document.getElementById('closePromo').addEventListener('click', () => document.getElementById('promoBanner').hidden = true);
+document.getElementById('menuButton').addEventListener('click', toggleMenu);
+document.getElementById('testiPrev').addEventListener('click', () => moveTesti(-1));
+document.getElementById('testiNext').addEventListener('click', () => moveTesti(1));
+document.getElementById('cookieNecessary').addEventListener('click', () => setCookieConsent(false));
+document.getElementById('cookieAccept').addEventListener('click', () => setCookieConsent(true));
