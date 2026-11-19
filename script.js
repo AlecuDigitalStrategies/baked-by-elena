@@ -151,7 +151,7 @@ const testiDots = document.getElementById('testiDots');
 for (let i = 0; i < slideCount; i++) {
   const d = document.createElement('button');
   d.className = 'dot' + (i === 0 ? ' active' : '');
-  d.setAttribute('aria-label', 'Recenzia ' + (i + 1));
+  d.setAttribute('aria-label', 'Mesajul ' + (i + 1));
   d.addEventListener('click', () => { testiIndex = i; updateTesti(); });
   testiDots.appendChild(d);
 }
